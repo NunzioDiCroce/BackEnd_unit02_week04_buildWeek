@@ -6,6 +6,7 @@ import java.util.UUID;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class Ruolo {
 	private Boolean ruoloAmministratore;
 
 	@ManyToMany
+	@JoinTable(name = "Utente_Ruolo")
 	private List<Utente> utente;
 
 }
