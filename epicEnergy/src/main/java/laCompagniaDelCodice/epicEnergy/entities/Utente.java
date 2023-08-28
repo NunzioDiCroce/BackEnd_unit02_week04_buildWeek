@@ -1,5 +1,6 @@
 package laCompagniaDelCodice.epicEnergy.entities;
 
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
@@ -31,6 +32,6 @@ public class Utente {
 	private String cognome;
 
 	@ManyToMany
-	private Ruolo ruolo;
+	private List<Ruolo> ruolo;
 
 }
