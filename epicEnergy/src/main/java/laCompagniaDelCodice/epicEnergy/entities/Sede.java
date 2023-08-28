@@ -1,7 +1,5 @@
 package laCompagniaDelCodice.epicEnergy.entities;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
@@ -9,9 +7,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import laCompagniaDelCodice.epicEnergy.enums.StatoFattura;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,22 +18,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Fatture")
-public class Fattura {
+@Table(name = "Sedi")
+public class Sede {
 
 	@Id
 	@GeneratedValue
 	private UUID id;
 
-	private int anno;
-	private Date data;
-	private BigDecimal importo;
-	private int numero;
-
 	@Enumerated(EnumType.STRING)
-	private StatoFattura statoFattura;
-
-	@ManyToOne
-	private Cliente cliente;
+	private TipoSede tipoSede;
 
 }
