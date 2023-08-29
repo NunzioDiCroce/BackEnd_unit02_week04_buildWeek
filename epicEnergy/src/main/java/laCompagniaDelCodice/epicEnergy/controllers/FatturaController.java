@@ -32,10 +32,10 @@ public class FatturaController {
 	@Autowired
 	private FatturaService fatturaService;
 
-	@GetMapping
-	public List<Fattura> getAllFatture() {
-		return fatturaService.getAllFatture();
-	}
+//	@GetMapping
+//	public List<Fattura> getAllFatture() {
+//		return fatturaService.getAllFatture();
+//	}
 
 	@GetMapping("/{id}")
 	public Fattura getFatturaById(@PathVariable UUID id) {

@@ -23,7 +23,7 @@ public class SanteRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-
+		/* IMPORTAZIONE DATI DA province-italiane.csv */
 		String filePathProvince = new File("province-italiane.csv").getPath();
 		boolean isFirstLineProvincia = true;
 
@@ -40,7 +40,7 @@ public class SanteRunner implements CommandLineRunner {
 				String nomeProvincia = columnsP[1];
 				String regione = columnsP[2];
 				ProvinciaRequestPayload provincia = new ProvinciaRequestPayload(sigla, nomeProvincia, regione);
-				provinciaSrv.create(provincia);
+				// provinciaSrv.create(provincia);
 				// System.out.println("SIGLA: " + sigla + ", PROVINCIA: " + nomeProvincia + ",
 				// REGIONE: " + regione);
 			}
@@ -48,6 +48,7 @@ public class SanteRunner implements CommandLineRunner {
 			e.printStackTrace();
 		}
 
+		/* IMPORTAZIONE DEI DATI DA comuni-italiani.csv */
 		String filePathComuni = new File("comuni-italiani.csv").getPath();
 		boolean isFirstLineComune = true;
 		int progressivoComune = 1;
@@ -66,7 +67,7 @@ public class SanteRunner implements CommandLineRunner {
 				String nomeProvincia = columnsC[3];
 				ComuneRequestPayload nuovocomune = new ComuneRequestPayload(codiProvincia, progressivoComuneStringa,
 						denominazioneItaliano, nomeProvincia);
-				comuneSrv.create(nuovocomune);
+				// comuneSrv.create(nuovocomune);
 				System.out.println("Codice Provincia (Storico)(1): " + codiProvincia + ", Progressivo del Comune: "
 						+ progressivoComune + ",Denominazione in italiano: " + denominazioneItaliano
 						+ ", Nome Provincia: " + nomeProvincia);

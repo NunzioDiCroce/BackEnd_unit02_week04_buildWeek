@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
 
-import laCompagniaDelCodice.epicEnergy.entities.Cliente;
 import laCompagniaDelCodice.epicEnergy.entities.Fattura;
 import laCompagniaDelCodice.epicEnergy.enums.StatoFattura;
 import laCompagniaDelCodice.epicEnergy.repositories.FatturaRepository;
@@ -32,8 +31,9 @@ public class LucaRunner implements CommandLineRunner {
 			fattura.setNumero(faker.number().numberBetween(100, 999));
 			fattura.setStatoFattura(
 					StatoFattura.values()[faker.number().numberBetween(0, StatoFattura.values().length - 1)]);
-			fattura.setCliente(new Cliente(faker.name().fullName(), faker.address().fullAddress()));
-			fatturaRepository.save(fattura);
+//			 fattura.setCliente(new Cliente(faker.name().fullName(),
+//			 faker.address().fullAddress()));
+//			 fatturaRepository.save(fattura);
 		}
 	}
 }
