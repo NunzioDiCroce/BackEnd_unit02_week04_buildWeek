@@ -22,9 +22,20 @@ public class Provincia {
 	@Id
 	@GeneratedValue
 	private UUID id;
-
 	private String sigla;
 	private String provincia;
 	private String Regione;
+
+	public Provincia(String sigla, String provincia, String regione) {
+
+		this.sigla = sigla;
+		this.provincia = provincia;
+		Regione = regione;
+	}
+
+	@Override
+	public String toString() {
+		return "Provincia [id=" + id + ", sigla=" + sigla + ", provincia=" + provincia + ", Regione=" + Regione + "]";
+	}
 
 }
