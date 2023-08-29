@@ -41,7 +41,7 @@ public class SanteRunner implements CommandLineRunner {
 				String nomeProvincia = columnsP[1];
 				String regione = columnsP[2];
 				ProvinciaRequestPayload provincia = new ProvinciaRequestPayload(sigla, nomeProvincia, regione);
-				// provinciaSrv.create(provincia);
+				provinciaSrv.create(provincia);
 				// System.out.println("SIGLA: " + sigla + ", PROVINCIA: " + nomeProvincia + ",
 				// REGIONE: " + regione);
 			}
