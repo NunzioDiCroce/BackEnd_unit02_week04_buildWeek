@@ -52,7 +52,7 @@ public class RuoloService {
 
 	}
 
-	// ELIMNA RUOLO
+	// ELIMINA RUOLO
 	public void findByIdAndDelete(UUID id) throws ItemNotFoundException {
 		Ruolo found = this.findById(id);
 		ruoloRepository.delete(found);
