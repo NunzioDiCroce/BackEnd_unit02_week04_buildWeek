@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,7 +77,7 @@ public class FatturaController {
 	}
 
 	@GetMapping("/filtro/data")
-	public List<Fattura> filtraPerData(@RequestParam Date data) {
+	public List<Fattura> filtraPerData(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS") Date data) {
 		return fatturaService.filtraPerData(data);
 	}
 
