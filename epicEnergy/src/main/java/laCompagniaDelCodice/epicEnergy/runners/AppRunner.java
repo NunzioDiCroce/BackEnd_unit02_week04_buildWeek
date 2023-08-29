@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class AppRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Faker faker = new Faker();
+		Faker faker = new Faker(new Locale("it"));
 		Cliente cliente = null;
 
 		/* IMPORTAZIONE DATI DA province-italiane.csv */
