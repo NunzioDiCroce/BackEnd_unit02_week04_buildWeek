@@ -9,4 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RuoloSavePayload {
 
+	private Boolean ruoloOperatore;
+	private Boolean ruoloAmministratore;
+
 }
