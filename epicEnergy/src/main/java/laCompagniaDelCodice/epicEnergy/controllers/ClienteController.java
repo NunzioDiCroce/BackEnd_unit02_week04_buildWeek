@@ -84,10 +84,10 @@ public class ClienteController {
 		return clienteService.ordinaPerDataUltimoContatto();
 	}
 
-//	@GetMapping("/ordinato/provincia-sede-legale")
-//	public List<Cliente> ordinaClientiPerProvinciaSedeLegale() {
-//		return clienteService.ordinaPerProvinciaSedeLegale();
-//	}
+	@GetMapping("/ordinato/sedi-legali")
+	public List<Cliente> getClientiWithSediLegal() {
+		return clienteService.findAllBySediLegalOrderBySediComuneProvinciaAsc();
+	}
 
 	@GetMapping("/filtro/fatturato")
 	public List<Cliente> filtraClientiPerFatturatoAnnuale(@RequestParam BigDecimal fatturaAnnuale) {

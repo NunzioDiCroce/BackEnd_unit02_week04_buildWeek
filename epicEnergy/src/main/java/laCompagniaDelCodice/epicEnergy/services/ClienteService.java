@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import laCompagniaDelCodice.epicEnergy.entities.Cliente;
+import laCompagniaDelCodice.epicEnergy.enums.TipoSede;
 import laCompagniaDelCodice.epicEnergy.exceptions.NotFoundException;
 import laCompagniaDelCodice.epicEnergy.payloads.NewClientePayload;
 import laCompagniaDelCodice.epicEnergy.repositories.ClienteRepository;
@@ -90,9 +91,9 @@ public class ClienteService {
 	}
 
 	// ------------ORDINA CLIENTE PER PROVINCIA SEDE LEGALE
-//	public List<Cliente> ordinaPerProvinciaSedeLegale() {
-//		return clienteRepository.findAllByOrderByProvinciaSedeLegaleAsc();
-//	}
+	public List<Cliente> findAllBySediLegalOrderBySediComuneProvinciaAsc() {
+		return clienteRepository.findAllBySedi_TipoSedeOrderBySedi_Comune_ProvinciaAsc(TipoSede.LEGALE);
+	}
 
 	// ------------FILTRA CLIENTE PER FATTURATO ANNUALE
 	public List<Cliente> filtraPerFatturatoAnnuale(BigDecimal fatturaAnnuale) {

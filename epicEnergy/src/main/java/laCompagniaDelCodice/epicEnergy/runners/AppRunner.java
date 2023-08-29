@@ -22,9 +22,9 @@ import laCompagniaDelCodice.epicEnergy.enums.StatoFattura;
 import laCompagniaDelCodice.epicEnergy.enums.TipoCliente;
 import laCompagniaDelCodice.epicEnergy.enums.TipoSede;
 import laCompagniaDelCodice.epicEnergy.payloads.ProvinciaRequestPayload;
-import laCompagniaDelCodice.epicEnergy.repositories.ComuneRepository;
 import laCompagniaDelCodice.epicEnergy.repositories.SedeRepository;
 import laCompagniaDelCodice.epicEnergy.services.ClienteService;
+import laCompagniaDelCodice.epicEnergy.services.ComuneService;
 import laCompagniaDelCodice.epicEnergy.services.FatturaService;
 import laCompagniaDelCodice.epicEnergy.services.ProvinciaService;
 
@@ -44,14 +44,13 @@ public class AppRunner implements CommandLineRunner {
 	ProvinciaService provinciaSrv;
 
 	@Autowired
-	ComuneRepository comuneRepo;
+	ComuneService comuneSrv;
 
 	@Override
 	public void run(String... args) throws Exception {
 		Faker faker = new Faker(new Locale("it"));
 		Cliente cliente = null;
 
-		/* IMPORTAZIONE DATI DA province-italiane.csv */
 		String filePathProvince = new File("province-italiane.csv").getPath();
 		boolean isFirstLineProvincia = true;
 
@@ -69,14 +68,11 @@ public class AppRunner implements CommandLineRunner {
 				String regione = columnsP[2];
 				ProvinciaRequestPayload provincia = new ProvinciaRequestPayload(sigla, nomeProvincia, regione);
 				provinciaSrv.create(provincia);
-				// System.out.println("SIGLA: " + sigla + ", PROVINCIA: " + nomeProvincia + ",
-				// REGIONE: " + regione);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		/* IMPORTAZIONE DEI DATI DA comuni-italiani.csv */
 		String filePathComuni = new File("comuni-italiani.csv").getPath();
 		boolean isFirstLineComune = true;
 		int progressivoComune = 1;
@@ -95,7 +91,8 @@ public class AppRunner implements CommandLineRunner {
 				String nomeProvincia = columnsC[3];
 				Comune nuovocomune = new Comune(codiProvincia, progressivoComuneStringa, denominazioneItaliano,
 						nomeProvincia);
-				comuneRepo.save(nuovocomune);
+				Comune savedComune = comuneSrv.create(nuovocomune);
+
 				for (int i = 0; i < 30; i++) {
 					cliente = new Cliente();
 					cliente.setRagioneSociale(faker.company().name());
@@ -113,38 +110,34 @@ public class AppRunner implements CommandLineRunner {
 					cliente.setTipoCliente(
 							TipoCliente.values()[faker.number().numberBetween(0, TipoCliente.values().length)]);
 					clienteService.saveCliente(cliente);
-				}
-				for (int i = 0; i < 30; i++) {
+
 					Sede sede = new Sede();
 					sede.setVia(faker.address().streetAddress(true));
 					sede.setCivico(faker.address().hashCode());
 					sede.setCap(faker.address().zipCode());
-					sede.setLocalita(faker.address().country());
+					sede.setLocalita("Italia");
 					sede.setTipoSede(TipoSede.values()[faker.number().numberBetween(0, TipoSede.values().length)]);
 					sede.setCliente(cliente);
-					sede.setComune(nuovocomune);
+					sede.setComune(savedComune);
 					sedeRepo.save(sede);
 				}
-//				System.out.println("Codice Provincia (Storico)(1): " + codiProvincia + ", Progressivo del Comune: "
-//						+ progressivoComune + ",Denominazione in italiano: " + denominazioneItaliano
-//						+ ", Nome Provincia: " + nomeProvincia);
+
+				for (int i = 0; i < 30; i++) {
+					Fattura fattura = new Fattura();
+					fattura.setAnno(faker.number().numberBetween(2020, 2023));
+					fattura.setData(faker.date().past(30, TimeUnit.DAYS));
+					fattura.setImporto(new BigDecimal(faker.number().randomDouble(2, 10, 1000)));
+					fattura.setNumero(faker.number().numberBetween(100, 999));
+					fattura.setStatoFattura(
+							StatoFattura.values()[faker.number().numberBetween(0, StatoFattura.values().length - 1)]);
+					fattura.setCliente(cliente);
+					fatturaService.saveFattura(fattura);
+				}
+
 				progressivoComune++;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		for (int i = 0; i < 30; i++) {
-			Fattura fattura = new Fattura();
-			fattura.setAnno(faker.number().numberBetween(2020, 2023));
-			fattura.setData(faker.date().past(30, TimeUnit.DAYS));
-			fattura.setImporto(new BigDecimal(faker.number().randomDouble(2, 10, 1000)));
-			fattura.setNumero(faker.number().numberBetween(100, 999));
-			fattura.setStatoFattura(
-					StatoFattura.values()[faker.number().numberBetween(0, StatoFattura.values().length - 1)]);
-			fattura.setCliente(cliente);
-			fatturaService.saveFattura(fattura);
-		}
-
 	}
 }

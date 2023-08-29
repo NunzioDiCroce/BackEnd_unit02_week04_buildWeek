@@ -5,6 +5,7 @@ import java.util.UUID;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,8 +29,8 @@ public class Comune {
 	private String denominazione;
 	private String nomeProvincia;
 
-//	@ManyToOne
-//	private Provincia provincia;
+	@ManyToOne
+	private Provincia provincia;
 
 	@Override
 	public String toString() {

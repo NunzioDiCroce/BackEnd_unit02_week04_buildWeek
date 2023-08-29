@@ -25,13 +25,13 @@ public class ComuneService {
 		this.comuneRepo = comuneRepo;
 	}
 
-	public Comune create(ComuneRequestPayload body) {
+	public Comune create(Comune nuovocomune2) {
 		// check if email already in use
 //		utenteRepo.findByEmail(body.getEmail()).ifPresent(user -> {
 //			throw new BadRequestException("L'email è già stata utilizzata");
 //		});
-		Comune nuovoComune = new Comune(body.getCodiceProvincia(), body.getProgressivoComune(), body.getDenominazione(),
-				body.getNomeProvincia());
+		Comune nuovoComune = new Comune(nuovocomune2.getCodiceProvincia(), nuovocomune2.getProgressivoComune(),
+				nuovocomune2.getDenominazione(), nuovocomune2.getNomeProvincia());
 		return comuneRepo.save(nuovoComune);
 	}
 

@@ -29,7 +29,7 @@ public class ComuneController {
 	// POST COMUNE
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Comune saveComune(@RequestBody ComuneRequestPayload body) {
+	public Comune saveComune(@RequestBody Comune body) {
 		Comune created = comuneSrv.create(body);
 		return created;
 	}
@@ -46,8 +46,6 @@ public class ComuneController {
 	public Comune getComuneById(@PathVariable UUID id) {
 		return comuneSrv.findById(id);
 	}
-
-
 
 	// PUT COMUNE
 	@PutMapping("/{comuneId}")
