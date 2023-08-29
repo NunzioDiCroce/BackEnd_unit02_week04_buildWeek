@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import laCompagniaDelCodice.epicEnergy.entities.Ruolo;
-import laCompagniaDelCodice.epicEnergy.entities.Utente;
 import laCompagniaDelCodice.epicEnergy.exceptions.ItemNotFoundException;
 import laCompagniaDelCodice.epicEnergy.payloads.RuoloSavePayload;
+import laCompagniaDelCodice.epicEnergy.payloads.RuoloUpdatePayload;
 import laCompagniaDelCodice.epicEnergy.repositories.RuoloRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,23 +43,19 @@ public class RuoloService {
 
 	// AGGIORNA RUOLO
 	public Ruolo findByIdAndUpdate(UUID id, RuoloUpdatePayload body) throws ItemNotFoundException {
-		Utente found = this.findById(id);
+		Ruolo found = this.findById(id);
 
-		found.setUsername(body.getUsername());
-		found.setPassword(body.getPassword());
-		found.setEmail(body.getEmail());
-		found.setNome(body.getNome());
-		found.setCognome(body.getCognome());
-		found.setRuolo(body.getRuolo());
+		found.setRuoloOperatore(body.getRuoloOperatore());
+		found.setRuoloAmministratore(body.getRuoloAmministratore());
 
-		return utenteRepository.save(found);
+		return ruoloRepository.save(found);
 
 	}
 
 	// ELIMNA RUOLO
 	public void findByIdAndDelete(UUID id) throws ItemNotFoundException {
-		Utente found = this.findById(id);
-		utenteRepository.delete(found);
+		Ruolo found = this.findById(id);
+		ruoloRepository.delete(found);
 	}
 
 }
