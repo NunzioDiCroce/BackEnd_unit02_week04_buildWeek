@@ -36,4 +36,13 @@ public class Utente {
 	@JoinTable(name = "Utente_Ruolo")
 	private List<Ruolo> ruolo;
 
+	public Utente(String username, String password, String email, String nome, String cognome, List<Ruolo> ruolo) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.ruolo = ruolo;
+	}
+
 }
