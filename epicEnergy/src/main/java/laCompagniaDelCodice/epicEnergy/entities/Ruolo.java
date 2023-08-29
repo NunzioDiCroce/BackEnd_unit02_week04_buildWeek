@@ -33,4 +33,9 @@ public class Ruolo {
 	@JoinTable(name = "Utente_Ruolo")
 	private List<Utente> utente;
 
+	public Ruolo(Boolean ruoloOperatore, Boolean ruoloAmmnistratore) {
+		this.ruoloOperatore = ruoloOperatore;
+		this.ruoloAmministratore = ruoloAmmnistratore;
+	}
+
 }

@@ -41,4 +41,15 @@ public class Sede {
 	@Enumerated(EnumType.STRING)
 	private TipoSede tipoSede;
 
+	public Sede(String via, int civico, String localita, String cap, Cliente cliente, Comune comune,
+			TipoSede tipoSede) {
+		this.via = via;
+		this.civico = civico;
+		this.localita = localita;
+		this.cap = cap;
+		this.cliente = cliente;
+		this.comune = comune;
+		this.tipoSede = tipoSede;
+	}
+
 }

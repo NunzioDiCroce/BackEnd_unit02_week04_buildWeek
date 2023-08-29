@@ -57,7 +57,7 @@ public class UtenteService {
 
 	}
 
-	// ELIMNA UTENTE
+	// ELIMINA UTENTE
 	public void findByIdAndDelete(UUID id) throws ItemNotFoundException {
 		Utente found = this.findById(id);
 		utenteRepository.delete(found);
