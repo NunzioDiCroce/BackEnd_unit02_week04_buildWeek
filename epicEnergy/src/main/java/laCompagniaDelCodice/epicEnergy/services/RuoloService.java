@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import laCompagniaDelCodice.epicEnergy.entities.Ruolo;
 import laCompagniaDelCodice.epicEnergy.entities.Utente;
 import laCompagniaDelCodice.epicEnergy.exceptions.ItemNotFoundException;
-import laCompagniaDelCodice.epicEnergy.payloads.UtenteSavePayload;
-import laCompagniaDelCodice.epicEnergy.payloads.UtenteUpdatePayload;
+import laCompagniaDelCodice.epicEnergy.payloads.RuoloSavePayload;
 import laCompagniaDelCodice.epicEnergy.repositories.RuoloRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,25 +25,24 @@ public class RuoloService {
 	}
 
 	// SALVA RUOLO
-	public Ruolo save(UtenteSavePayload body) {
-		Utente nuovoUtente = new Utente(body.getUsername(), body.getPassword(), body.getEmail(), body.getNome(),
-				body.getCognome(), body.getRuolo());
-		return utenteRepository.save(nuovoUtente);
+	public Ruolo save(RuoloSavePayload body) {
+		Ruolo nuovoRuolo = new Ruolo(body.getRuoloOperatore(), body.getRuoloAmministratore());
+		return ruoloRepository.save(nuovoRuolo);
 	}
 
 	// CERCA RUOLI
-	public List<Utente> findAll() {
-		return utenteRepository.findAll();
+	public List<Ruolo> findAll() {
+		return ruoloRepository.findAll();
 	}
 
 	// CERCA RUOLO PER ID
-	public Utente findById(UUID id) throws ItemNotFoundException {
-		return utenteRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+	public Ruolo findById(UUID id) throws ItemNotFoundException {
+		return ruoloRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
 
 	}
 
 	// AGGIORNA RUOLO
-	public Utente findByIdAndUpdate(UUID id, UtenteUpdatePayload body) throws ItemNotFoundException {
+	public Ruolo findByIdAndUpdate(UUID id, RuoloUpdatePayload body) throws ItemNotFoundException {
 		Utente found = this.findById(id);
 
 		found.setUsername(body.getUsername());
