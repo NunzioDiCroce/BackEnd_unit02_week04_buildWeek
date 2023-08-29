@@ -36,7 +36,7 @@ public class UtenteController {
 	}
 
 	// GET UTENTI
-	@GetMapping("")
+	@GetMapping
 	public List<Utente> getUsers() {
 		return utenteService.findAll();
 	}
