@@ -20,9 +20,9 @@ public class SanteRunner implements CommandLineRunner {
 	ProvinciaService provinciaSrv;
 	@Autowired
 	ComuneService comuneSrv;
+
 	@Override
 	public void run(String... args) throws Exception {
-
 
 		String filePathProvince = new File("province-italiane.csv").getPath();
 		boolean isFirstLineProvincia = true;
@@ -67,9 +67,9 @@ public class SanteRunner implements CommandLineRunner {
 				ComuneRequestPayload nuovocomune = new ComuneRequestPayload(codiProvincia, progressivoComuneStringa,
 						denominazioneItaliano, nomeProvincia);
 				comuneSrv.create(nuovocomune);
-				System.out.println("Codice Provincia (Storico)(1): " + codiProvincia + ", Progressivo del Comune: "
-						+ progressivoComune + ",Denominazione in italiano: " + denominazioneItaliano
-						+ ", Nome Provincia: " + nomeProvincia);
+//				System.out.println("Codice Provincia (Storico)(1): " + codiProvincia + ", Progressivo del Comune: "
+//						+ progressivoComune + ",Denominazione in italiano: " + denominazioneItaliano
+//						+ ", Nome Provincia: " + nomeProvincia);
 				progressivoComune++;
 			}
 		} catch (IOException e) {

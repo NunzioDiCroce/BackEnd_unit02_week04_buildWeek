@@ -90,9 +90,9 @@ public class ClienteService {
 	}
 
 	// ------------ORDINA CLIENTE PER PROVINCIA SEDE LEGALE
-	public List<Cliente> ordinaPerProvinciaSedeLegale() {
-		return clienteRepository.findAllByOrderByProvinciaSedeLegaleAsc();
-	}
+//	public List<Cliente> ordinaPerProvinciaSedeLegale() {
+//		return clienteRepository.findAllByOrderByProvinciaSedeLegaleAsc();
+//	}
 
 	// ------------FILTRA CLIENTE PER FATTURATO ANNUALE
 	public List<Cliente> filtraPerFatturatoAnnuale(BigDecimal fatturaAnnuale) {

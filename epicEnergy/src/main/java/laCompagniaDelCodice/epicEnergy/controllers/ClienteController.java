@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -83,10 +84,10 @@ public class ClienteController {
 		return clienteService.ordinaPerDataUltimoContatto();
 	}
 
-	@GetMapping("/ordinato/provincia-sede-legale")
-	public List<Cliente> ordinaClientiPerProvinciaSedeLegale() {
-		return clienteService.ordinaPerProvinciaSedeLegale();
-	}
+//	@GetMapping("/ordinato/provincia-sede-legale")
+//	public List<Cliente> ordinaClientiPerProvinciaSedeLegale() {
+//		return clienteService.ordinaPerProvinciaSedeLegale();
+//	}
 
 	@GetMapping("/filtro/fatturato")
 	public List<Cliente> filtraClientiPerFatturatoAnnuale(@RequestParam BigDecimal fatturaAnnuale) {
@@ -94,12 +95,14 @@ public class ClienteController {
 	}
 
 	@GetMapping("/filtro/data-inserimento")
-	public List<Cliente> filtraClientiPerDataInserimento(@RequestParam Date dataInserimento) {
+	public List<Cliente> filtraClientiPerDataInserimento(
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS") Date dataInserimento) {
 		return clienteService.filtraPerDataInserimento(dataInserimento);
 	}
 
 	@GetMapping("/filtro/data-ultimo-contatto")
-	public List<Cliente> filtraClientiPerDataUltimoContatto(@RequestParam Date dataUltimoContatto) {
+	public List<Cliente> filtraClientiPerDataUltimoContatto(
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS") Date dataUltimoContatto) {
 		return clienteService.filtraPerDataUltimoContatto(dataUltimoContatto);
 	}
 
