@@ -27,7 +27,7 @@ public class RuoloController {
 	@Autowired
 	private RuoloService ruoloService;
 
-	// POST UTENTE
+	// POST RUOLO
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Ruolo saveRole(@RequestBody RuoloSavePayload body) {
@@ -35,26 +35,26 @@ public class RuoloController {
 		return created;
 	}
 
-	// GET UTENTI
+	// GET RUOLO
 	@GetMapping("")
 	public List<Ruolo> getRoles() {
 		return ruoloService.findAll();
 	}
 
-	// GET UTENTE BY ID
+	// GET RUOLO BY ID
 	@GetMapping("/{roleId}")
 	public Ruolo getRoleById(@PathVariable UUID roleId) {
 		return ruoloService.findById(roleId);
 
 	}
 
-	// PUT UTENTE
+	// PUT RUOLO
 	@PutMapping("/{roleId}")
 	public Ruolo updateRole(@PathVariable UUID roleId, @RequestBody RuoloUpdatePayload body) {
 		return ruoloService.findByIdAndUpdate(roleId, body);
 	}
 
-	// DELETE UTENTE
+	// DELETE RUOLO
 	@DeleteMapping("/{roleId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteRole(@PathVariable UUID roleId) {
