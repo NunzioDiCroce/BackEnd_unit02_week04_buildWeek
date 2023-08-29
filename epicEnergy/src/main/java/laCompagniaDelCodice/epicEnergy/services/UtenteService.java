@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import laCompagniaDelCodice.epicEnergy.entities.Utente;
 import laCompagniaDelCodice.epicEnergy.exceptions.ItemNotFoundException;
+import laCompagniaDelCodice.epicEnergy.payloads.UtenteUpdatePayload;
 import laCompagniaDelCodice.epicEnergy.repositories.UtenteRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,12 +45,21 @@ public class UtenteService {
 	public Utente findByIdAndUpdate(UUID id, UtenteUpdatePayload body) throws ItemNotFoundException {
 		Utente found = this.findById(id);
 
-		found.setUserName(body.getUserName());
+		found.setUsername(body.getUsername());
+		found.setPassword(body.getPassword());
+		found.setEmail(body.getEmail());
 		found.setNome(body.getNome());
 		found.setCognome(body.getCognome());
-		found.setMail(body.getMail());
+		found.setRuolo(body.getRuolo());
 
 		return utenteRepository.save(found);
+
+	}
+
+	// ELIMNA UTENTE
+	public void findByIdAndDelete(UUID id) throws ItemNotFoundException {
+		Utente found = this.findById(id);
+		utenteRepository.delete(found);
 	}
 
 }
