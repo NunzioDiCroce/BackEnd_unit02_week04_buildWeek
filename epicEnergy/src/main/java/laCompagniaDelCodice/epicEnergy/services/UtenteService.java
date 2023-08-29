@@ -40,4 +40,16 @@ public class UtenteService {
 
 	}
 
+	// AGGIORNA UTENTE
+	public Utente findByIdAndUpdate(UUID id, UtenteUpdatePayload body) throws ItemNotFoundException {
+		Utente found = this.findById(id);
+
+		found.setUserName(body.getUserName());
+		found.setNome(body.getNome());
+		found.setCognome(body.getCognome());
+		found.setMail(body.getMail());
+
+		return utenteRepository.save(found);
+	}
+
 }
