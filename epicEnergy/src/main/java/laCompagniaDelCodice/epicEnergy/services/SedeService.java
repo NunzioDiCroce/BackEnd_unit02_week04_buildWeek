@@ -10,7 +10,6 @@ import laCompagniaDelCodice.epicEnergy.entities.Sede;
 import laCompagniaDelCodice.epicEnergy.entities.Utente;
 import laCompagniaDelCodice.epicEnergy.exceptions.ItemNotFoundException;
 import laCompagniaDelCodice.epicEnergy.payloads.SedeSavePayload;
-import laCompagniaDelCodice.epicEnergy.payloads.UtenteUpdatePayload;
 import laCompagniaDelCodice.epicEnergy.repositories.SedeRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,18 +33,18 @@ public class SedeService {
 	}
 
 	// CERCA SEDI
-	public List<Utente> findAll() {
-		return utenteRepository.findAll();
+	public List<Sede> findAll() {
+		return sedeRepository.findAll();
 	}
 
 	// CERCA SEDE PER ID
-	public Utente findById(UUID id) throws ItemNotFoundException {
-		return utenteRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+	public Sede findById(UUID id) throws ItemNotFoundException {
+		return sedeRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
 
 	}
 
 	// AGGIORNA SEDE
-	public Utente findByIdAndUpdate(UUID id, UtenteUpdatePayload body) throws ItemNotFoundException {
+	public Sede findByIdAndUpdate(UUID id, SedeUpdatePayload body) throws ItemNotFoundException {
 		Utente found = this.findById(id);
 
 		found.setUsername(body.getUsername());
