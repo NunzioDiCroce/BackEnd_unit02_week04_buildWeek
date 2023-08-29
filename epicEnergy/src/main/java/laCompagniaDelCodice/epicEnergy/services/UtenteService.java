@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import laCompagniaDelCodice.epicEnergy.entities.Utente;
+import laCompagniaDelCodice.epicEnergy.exceptions.ItemNotFoundException;
 import laCompagniaDelCodice.epicEnergy.repositories.UtenteRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +25,7 @@ public class UtenteService {
 	// SALVA UTENTE
 	public void save(Utente utente) {
 		utenteRepository.save(utente);
-		log.info("Utente con ID " + utente.getId() + " salvato con successo");
+		log.info("Utente con id " + utente.getId() + " salvato con successo.");
 
 	}
 
