@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import laCompagniaDelCodice.epicEnergy.entities.Sede;
-import laCompagniaDelCodice.epicEnergy.entities.Utente;
 import laCompagniaDelCodice.epicEnergy.exceptions.ItemNotFoundException;
 import laCompagniaDelCodice.epicEnergy.payloads.SedeSavePayload;
+import laCompagniaDelCodice.epicEnergy.payloads.SedeUpdatePayload;
 import laCompagniaDelCodice.epicEnergy.repositories.SedeRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,23 +45,24 @@ public class SedeService {
 
 	// AGGIORNA SEDE
 	public Sede findByIdAndUpdate(UUID id, SedeUpdatePayload body) throws ItemNotFoundException {
-		Utente found = this.findById(id);
+		Sede found = this.findById(id);
 
-		found.setUsername(body.getUsername());
-		found.setPassword(body.getPassword());
-		found.setEmail(body.getEmail());
-		found.setNome(body.getNome());
-		found.setCognome(body.getCognome());
-		found.setRuolo(body.getRuolo());
+		found.setVia(body.getVia());
+		found.setCivico(body.getCivico());
+		found.setLocalita(body.getLocalita());
+		found.setCap(body.getCap());
+		found.setCliente(body.getCliente());
+		found.setComune(body.getComune());
+		found.setTipoSede(body.getTipoSede());
 
-		return utenteRepository.save(found);
+		return sedeRepository.save(found);
 
 	}
 
 	// ELIMINA SEDE
 	public void findByIdAndDelete(UUID id) throws ItemNotFoundException {
-		Utente found = this.findById(id);
-		utenteRepository.delete(found);
+		Sede found = this.findById(id);
+		sedeRepository.delete(found);
 	}
 
 }
