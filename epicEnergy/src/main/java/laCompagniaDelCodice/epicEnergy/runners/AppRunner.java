@@ -43,6 +43,7 @@ public class AppRunner implements CommandLineRunner {
 	SedeService sedeSrv;
 	@Autowired
 	FatturaService fatturaSrv;
+
 	@Override
 	public void run(String... args) throws Exception {
 		Faker faker = new Faker(Locale.ITALIAN);
@@ -107,7 +108,6 @@ public class AppRunner implements CommandLineRunner {
 					}
 				});
 
-
 				progressivoComune++;
 			}
 		} catch (IOException e) {
@@ -132,10 +132,8 @@ public class AppRunner implements CommandLineRunner {
 			cliente.setNomeContatto(faker.name().firstName());
 			cliente.setCognomeContatto(faker.name().lastName());
 			cliente.setTelefonoContatto(faker.phoneNumber().phoneNumber());
-			cliente.setTipoCliente(
-					TipoCliente.values()[faker.number().numberBetween(0, TipoCliente.values().length)]);
+			cliente.setTipoCliente(TipoCliente.values()[faker.number().numberBetween(0, TipoCliente.values().length)]);
 			// clienteService.saveCliente(cliente);
-
 
 		}
 
