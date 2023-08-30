@@ -36,7 +36,7 @@ public class Comune {
 	public String toString() {
 		return "Comune [id=" + id + ", codiceProvincia=" + codiceProvincia + ", progressivoComune=" + progressivoComune
 				+ ", denominazione=" + denominazione + ", nomeProvincia=" + nomeProvincia
-				// ", provincia=" + provincia
+				+ ", provincia=" + provincia
 				+ "]";
 	}
 

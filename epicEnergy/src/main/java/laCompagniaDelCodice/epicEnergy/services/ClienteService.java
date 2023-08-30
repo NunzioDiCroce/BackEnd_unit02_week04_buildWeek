@@ -115,4 +115,11 @@ public class ClienteService {
 		return clienteRepository.findByRagioneSocialeContainingIgnoreCase(ragioneSociale);
 	}
 
+	// ------------FIND TUTTI I CLIENTI SENZA PAGE
+	public List<Cliente> findNoPage() {
+		// (numero di pagina, numero di elementi per
+		// pagina, nome del campo per cui sortare)
+		return clienteRepository.findAll();
+	}
+
 }

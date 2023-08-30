@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import laCompagniaDelCodice.epicEnergy.entities.Sede;
 import laCompagniaDelCodice.epicEnergy.exceptions.ItemNotFoundException;
-import laCompagniaDelCodice.epicEnergy.payloads.SedeSavePayload;
 import laCompagniaDelCodice.epicEnergy.payloads.SedeUpdatePayload;
 import laCompagniaDelCodice.epicEnergy.repositories.SedeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +24,7 @@ public class SedeService {
 	}
 
 	// SALVA SEDE
-	public Sede save(SedeSavePayload body) {
+	public Sede save(Sede body) {
 		Sede nuovaSede = new Sede(body.getVia(), body.getCivico(), body.getLocalita(), body.getCap(), body.getCliente(),
 				body.getComune(), body.getTipoSede());
 		return sedeRepository.save(nuovaSede);

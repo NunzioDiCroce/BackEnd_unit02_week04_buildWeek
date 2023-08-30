@@ -32,6 +32,7 @@ public class ComuneService {
 //		});
 		Comune nuovoComune = new Comune(nuovocomune2.getCodiceProvincia(), nuovocomune2.getProgressivoComune(),
 				nuovocomune2.getDenominazione(), nuovocomune2.getNomeProvincia());
+		nuovoComune.setProvincia(nuovocomune2.getProvincia());
 		return comuneRepo.save(nuovoComune);
 	}
 

@@ -25,6 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+
 @Table(name = "Clienti")
 public class Cliente {
 
@@ -51,5 +52,15 @@ public class Cliente {
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Sede> sedi;
+
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", ragioneSociale=" + ragioneSociale + ", partitaIva=" + partitaIva + ", email="
+				+ email + ", dataInserimento=" + dataInserimento + ", dataUltimoContatto=" + dataUltimoContatto
+				+ ", fatturaAnnuale=" + fatturaAnnuale + ", pec=" + pec + ", telefono=" + telefono + ", emailContatto="
+				+ emailContatto + ", nomeContatto=" + nomeContatto + ", cognomeContatto=" + cognomeContatto
+				+ ", telefonoContatto=" + telefonoContatto + ", tipoCliente=" + tipoCliente + "]";
+	}
+
 
 }
