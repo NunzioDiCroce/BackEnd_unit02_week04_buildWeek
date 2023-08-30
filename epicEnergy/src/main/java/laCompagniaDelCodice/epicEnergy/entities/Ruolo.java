@@ -1,13 +1,10 @@
 package laCompagniaDelCodice.epicEnergy.entities;
 
-import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,15 +26,21 @@ public class Ruolo {
 	private Boolean ruoloOperatore;
 	private Boolean ruoloAmministratore;
 
-	@ManyToMany
-	@JoinTable(name = "Utente_Ruolo")
-	private List<Utente> utente;
+//	@ManyToMany
+//	@JoinTable(name = "Utente_Ruolo")
+//	private List<Utente> utente;
 
 	public Ruolo(Boolean ruoloOperatore, Boolean ruoloAmmnistratore, String nome) {
 		this.ruoloOperatore = ruoloOperatore;
 		this.ruoloAmministratore = ruoloAmmnistratore;
 		this.nome = nome;
 
+	}
+
+	@Override
+	public String toString() {
+		return "Ruolo [id=" + id + ", nome=" + nome + ", ruoloOperatore=" + ruoloOperatore + ", ruoloAmministratore="
+				+ ruoloAmministratore + "]";
 	}
 
 }

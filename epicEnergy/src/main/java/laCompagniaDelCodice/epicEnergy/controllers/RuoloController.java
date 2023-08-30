@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import laCompagniaDelCodice.epicEnergy.entities.Ruolo;
+import laCompagniaDelCodice.epicEnergy.entities.Utente;
+import laCompagniaDelCodice.epicEnergy.payloads.RuoloRequestModify;
 import laCompagniaDelCodice.epicEnergy.payloads.RuoloSavePayload;
 import laCompagniaDelCodice.epicEnergy.payloads.RuoloUpdatePayload;
 import laCompagniaDelCodice.epicEnergy.services.RuoloService;
@@ -52,6 +54,11 @@ public class RuoloController {
 	@PutMapping("/{roleId}")
 	public Ruolo updateRole(@PathVariable UUID roleId, @RequestBody RuoloUpdatePayload body) {
 		return ruoloService.findByIdAndUpdate(roleId, body);
+	}
+
+	@PutMapping("/assegna/{utenteId}")
+	public Utente assignRole(@PathVariable UUID utenteId, @RequestBody RuoloRequestModify body) {
+		return ruoloService.assegnaRuolo(utenteId, body);
 	}
 
 	// DELETE RUOLO

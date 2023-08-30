@@ -7,16 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import laCompagniaDelCodice.epicEnergy.entities.Ruolo;
+import laCompagniaDelCodice.epicEnergy.entities.Utente;
 import laCompagniaDelCodice.epicEnergy.exceptions.ItemNotFoundException;
+import laCompagniaDelCodice.epicEnergy.payloads.RuoloRequestModify;
 import laCompagniaDelCodice.epicEnergy.payloads.RuoloSavePayload;
 import laCompagniaDelCodice.epicEnergy.payloads.RuoloUpdatePayload;
 import laCompagniaDelCodice.epicEnergy.repositories.RuoloRepository;
+import laCompagniaDelCodice.epicEnergy.repositories.UtenteRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class RuoloService {
+	@Autowired
+	UtenteService utenteSrv;
 
+	@Autowired
+	UtenteRepository utenteRepo;
 	private final RuoloRepository ruoloRepository;
 
 	@Autowired
@@ -24,6 +31,23 @@ public class RuoloService {
 		this.ruoloRepository = ruoloRepository;
 	}
 
+	// ASSEGNAZIONE DI UN RUOLO AD UN UTENTE TRAMITE ID UTENTE
+
+	public Utente assegnaRuolo(UUID utenteId, RuoloRequestModify body)
+			throws ItemNotFoundException, IllegalStateException {
+		Utente utenteAssegnoRuolo = utenteSrv.findById(utenteId);
+
+		if (utenteAssegnoRuolo == null) {
+			throw new IllegalStateException("Utente non trovato");
+		} else {
+			Ruolo ruolo = this.findById(body.getId());
+			utenteAssegnoRuolo.setRuolo(ruolo);
+			// dispositivo.setStatoDispositivo(StatoDispositivo.ASSEGNATO);
+
+			return utenteRepo.save(utenteAssegnoRuolo);
+		}
+
+	}
 	// SALVA RUOLO
 	public Ruolo save(RuoloSavePayload body) {
 		Ruolo nuovoRuolo = new Ruolo(body.getRuoloOperatore(), body.getRuoloAmministratore(), body.getNome());

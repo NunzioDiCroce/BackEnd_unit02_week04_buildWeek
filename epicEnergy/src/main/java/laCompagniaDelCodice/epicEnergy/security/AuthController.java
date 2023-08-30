@@ -18,7 +18,7 @@ import laCompagniaDelCodice.epicEnergy.exceptions.BadRequestException;
 import laCompagniaDelCodice.epicEnergy.exceptions.UnauthorizedException;
 import laCompagniaDelCodice.epicEnergy.payloads.UtenteLoginPayload;
 import laCompagniaDelCodice.epicEnergy.payloads.UtenteLoginSuccessful;
-import laCompagniaDelCodice.epicEnergy.payloads.UtenteSavePayload;
+import laCompagniaDelCodice.epicEnergy.payloads.UtenteRequestPayload;
 import laCompagniaDelCodice.epicEnergy.services.UtenteService;
 
 @RestController
@@ -34,8 +34,8 @@ public class AuthController {
 
 	@PostMapping("/registrazione")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Utente saveUser(@RequestBody UtenteSavePayload body) {
-		Utente created = usersService.save(body);
+	public Utente saveUser(@RequestBody UtenteRequestPayload body) {
+		Utente created = usersService.create(body);
 
 		return created;
 	}

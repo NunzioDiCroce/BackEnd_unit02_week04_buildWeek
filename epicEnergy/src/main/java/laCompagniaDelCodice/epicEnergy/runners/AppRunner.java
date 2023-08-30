@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +21,22 @@ import laCompagniaDelCodice.epicEnergy.entities.Cliente;
 import laCompagniaDelCodice.epicEnergy.entities.Comune;
 import laCompagniaDelCodice.epicEnergy.entities.Fattura;
 import laCompagniaDelCodice.epicEnergy.entities.Provincia;
+import laCompagniaDelCodice.epicEnergy.entities.Ruolo;
 import laCompagniaDelCodice.epicEnergy.entities.Sede;
+import laCompagniaDelCodice.epicEnergy.entities.Utente;
 import laCompagniaDelCodice.epicEnergy.enums.StatoFattura;
 import laCompagniaDelCodice.epicEnergy.enums.TipoCliente;
 import laCompagniaDelCodice.epicEnergy.enums.TipoSede;
 import laCompagniaDelCodice.epicEnergy.payloads.ProvinciaRequestPayload;
+import laCompagniaDelCodice.epicEnergy.payloads.RuoloRequestModify;
+import laCompagniaDelCodice.epicEnergy.payloads.RuoloSavePayload;
 import laCompagniaDelCodice.epicEnergy.services.ClienteService;
 import laCompagniaDelCodice.epicEnergy.services.ComuneService;
 import laCompagniaDelCodice.epicEnergy.services.FatturaService;
 import laCompagniaDelCodice.epicEnergy.services.ProvinciaService;
+import laCompagniaDelCodice.epicEnergy.services.RuoloService;
 import laCompagniaDelCodice.epicEnergy.services.SedeService;
+import laCompagniaDelCodice.epicEnergy.services.UtenteService;
 
 @Component
 public class AppRunner implements CommandLineRunner {
@@ -43,6 +50,10 @@ public class AppRunner implements CommandLineRunner {
 	SedeService sedeSrv;
 	@Autowired
 	FatturaService fatturaSrv;
+	@Autowired
+	RuoloService ruoloSrv;
+	@Autowired
+	UtenteService utenteSrv;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -178,6 +189,31 @@ public class AppRunner implements CommandLineRunner {
 			fattura.setCliente(clientiDalDB.get(faker.number().numberBetween(0, clientiDalDB.size() - 1)));
 			// fatturaSrv.saveFattura(fattura);
 		}
+		/* INIZIALIZZO I RUOLI E LI SALVO NEL DB */
+		RuoloSavePayload operatore = new RuoloSavePayload(true, false, "OPERATORE");
+		RuoloSavePayload amministratore = new RuoloSavePayload(false, true, "AMMINISTRATORE");
+		// ruoloSrv.save(operatore);
+		// ruoloSrv.save(amministratore);
+
+		List<Ruolo> ruoli = ruoloSrv.findAll();
+		// ruoli.forEach(ruolo -> System.err.println(ruolo));
+
+		/* MI PRENDO GLI UTENTI DAL DB */
+		List<Utente> utentiDalDB = utenteSrv.findAll();
+		// utentiDalDB.forEach(ut -> System.err.println(ut));
+		// System.err.println(utentiDalDB.get(2));
+		Utente utente = utentiDalDB.get(2);
+		// System.err.println(utente);
+		UUID idUtente = utente.getId();
+		// System.err.println(idUtente);
+		Ruolo ruolo = ruoli.get(1);
+		System.err.println(ruolo);
+		UUID idRuolo = ruolo.getId();
+		System.err.println(idRuolo);
+		RuoloRequestModify ruoloModifica = new RuoloRequestModify(idRuolo);
+		System.err.println(ruoloModifica);
+		ruoloSrv.assegnaRuolo(idUtente, ruoloModifica);
+		System.err.println(utenteSrv.findById(idUtente).toString());
 
 	}
 

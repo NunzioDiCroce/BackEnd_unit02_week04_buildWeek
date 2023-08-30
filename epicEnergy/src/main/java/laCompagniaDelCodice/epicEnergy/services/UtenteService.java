@@ -10,6 +10,7 @@ import laCompagniaDelCodice.epicEnergy.entities.Utente;
 import laCompagniaDelCodice.epicEnergy.exceptions.BadRequestException;
 import laCompagniaDelCodice.epicEnergy.exceptions.ItemNotFoundException;
 import laCompagniaDelCodice.epicEnergy.exceptions.NotFoundException;
+import laCompagniaDelCodice.epicEnergy.payloads.UtenteRequestPayload;
 import laCompagniaDelCodice.epicEnergy.payloads.UtenteSavePayload;
 import laCompagniaDelCodice.epicEnergy.payloads.UtenteUpdatePayload;
 import laCompagniaDelCodice.epicEnergy.repositories.UtenteRepository;
@@ -33,12 +34,12 @@ public class UtenteService {
 //		return utenteRepository.save(nuovoUtente);
 //	}
 
-	public Utente create(UtenteSavePayload body) {
+	public Utente create(UtenteRequestPayload body) {
 		utenteRepository.findByEmail(body.getEmail()).ifPresent(user -> {
 			throw new BadRequestException("L'email è stata già utilizzata");
 		});
 		Utente newUser = new Utente(body.getUsername(), body.getPassword(), body.getEmail(), body.getNome(),
-				body.getCognome(), body.getRuolo());
+				body.getCognome());
 		return utenteRepository.save(newUser);
 	}
 
@@ -49,7 +50,7 @@ public class UtenteService {
 	// SALVA UTENTE
 	public Utente save(UtenteSavePayload body) {
 		Utente nuovoUtente = new Utente(body.getUsername(), body.getPassword(), body.getEmail(), body.getNome(),
-				body.getCognome(), body.getRuolo());
+				body.getCognome());
 		return utenteRepository.save(nuovoUtente);
 	}
 	// CERCA UTENTI

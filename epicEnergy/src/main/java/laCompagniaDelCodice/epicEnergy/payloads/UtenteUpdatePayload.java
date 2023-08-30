@@ -1,7 +1,5 @@
 package laCompagniaDelCodice.epicEnergy.payloads;
 
-import java.util.List;
-
 import laCompagniaDelCodice.epicEnergy.entities.Ruolo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +16,6 @@ public class UtenteUpdatePayload {
 	private String nome;
 	private String cognome;
 
-	private List<Ruolo> ruolo;
+	private Ruolo ruolo;
 
 }
