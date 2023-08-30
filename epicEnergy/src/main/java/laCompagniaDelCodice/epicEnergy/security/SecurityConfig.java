@@ -26,8 +26,12 @@ public class SecurityConfig {
 		/* DA AGGIUNGERE GLI ENDPOINTS CHE VOGLIAMO AUTENTICARE */
 		// http.authorizeHttpRequests(auth ->
 		// auth.requestMatchers("/dispositivi/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/comuni/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/provincie/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/sedi/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fatture/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/clienti/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").permitAll());
-
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/ruoli/**").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
 

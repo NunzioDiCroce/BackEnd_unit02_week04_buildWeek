@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +36,7 @@ public class Utente implements UserDetails {
 	private String nome;
 	private String cognome;
 
-	@OneToOne
+	@ManyToOne
 	private Ruolo ruolo;
 
 	public Utente(String username, String password, String email, String nome, String cognome, Ruolo ruolo) {
