@@ -28,7 +28,7 @@ public class SecurityConfig {
 		// auth.requestMatchers("/dispositivi/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
 
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/ruoli/**").permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/ruoli/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
 
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
