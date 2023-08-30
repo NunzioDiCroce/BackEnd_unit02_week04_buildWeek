@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import laCompagniaDelCodice.epicEnergy.entities.Sede;
-import laCompagniaDelCodice.epicEnergy.payloads.SedeSavePayload;
 import laCompagniaDelCodice.epicEnergy.payloads.SedeUpdatePayload;
 import laCompagniaDelCodice.epicEnergy.services.SedeService;
 
@@ -30,7 +29,7 @@ public class SedeController {
 	// POST SEDE
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Sede saveSite(@RequestBody SedeSavePayload body) {
+	public Sede saveSite(@RequestBody Sede body) {
 		Sede created = sedeService.save(body);
 		return created;
 	}
