@@ -9,5 +9,5 @@ import laCompagniaDelCodice.epicEnergy.entities.Ruolo;
 
 @Repository
 public interface RuoloRepository extends JpaRepository<Ruolo, UUID> {
-
+	Ruolo findByNome(String nome);
 }

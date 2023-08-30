@@ -12,6 +12,7 @@ import laCompagniaDelCodice.epicEnergy.exceptions.ItemNotFoundException;
 import laCompagniaDelCodice.epicEnergy.exceptions.NotFoundException;
 import laCompagniaDelCodice.epicEnergy.payloads.UtenteSavePayload;
 import laCompagniaDelCodice.epicEnergy.payloads.UtenteUpdatePayload;
+import laCompagniaDelCodice.epicEnergy.repositories.RuoloRepository;
 import laCompagniaDelCodice.epicEnergy.repositories.UtenteRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,10 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 public class UtenteService {
 
 	private final UtenteRepository utenteRepository;
+	private final RuoloRepository ruoloRepository;
 
 	@Autowired
-	public UtenteService(UtenteRepository utenteRepository) {
+	public UtenteService(UtenteRepository utenteRepository, RuoloRepository ruoloRepository) {
 		this.utenteRepository = utenteRepository;
+		this.ruoloRepository = ruoloRepository;
 	}
 
 	// SALVA UTENTE
