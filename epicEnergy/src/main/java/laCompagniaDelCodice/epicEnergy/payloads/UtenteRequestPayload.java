@@ -7,10 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class RuoloSavePayload {
-
-	private Boolean ruoloOperatore;
-	private Boolean ruoloAmministratore;
+public class UtenteRequestPayload {
+	private String username;
+	private String password;
+	private String email;
 	private String nome;
-
+	private String cognome;
 }

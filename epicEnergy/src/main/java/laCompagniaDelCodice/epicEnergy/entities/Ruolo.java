@@ -25,7 +25,7 @@ public class Ruolo {
 	@Id
 	@GeneratedValue
 	private UUID id;
-
+	private String nome;
 	private Boolean ruoloOperatore;
 	private Boolean ruoloAmministratore;
 
@@ -33,9 +33,11 @@ public class Ruolo {
 	@JoinTable(name = "Utente_Ruolo")
 	private List<Utente> utente;
 
-	public Ruolo(Boolean ruoloOperatore, Boolean ruoloAmmnistratore) {
+	public Ruolo(Boolean ruoloOperatore, Boolean ruoloAmmnistratore, String nome) {
 		this.ruoloOperatore = ruoloOperatore;
 		this.ruoloAmministratore = ruoloAmmnistratore;
+		this.nome = nome;
+
 	}
 
 }

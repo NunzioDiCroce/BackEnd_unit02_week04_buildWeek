@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import laCompagniaDelCodice.epicEnergy.entities.Utente;
+import laCompagniaDelCodice.epicEnergy.exceptions.BadRequestException;
 import laCompagniaDelCodice.epicEnergy.exceptions.ItemNotFoundException;
+import laCompagniaDelCodice.epicEnergy.exceptions.NotFoundException;
 import laCompagniaDelCodice.epicEnergy.payloads.UtenteSavePayload;
 import laCompagniaDelCodice.epicEnergy.payloads.UtenteUpdatePayload;
 import laCompagniaDelCodice.epicEnergy.repositories.UtenteRepository;
@@ -25,12 +27,31 @@ public class UtenteService {
 	}
 
 	// SALVA UTENTE
+//	public Utente saveIniziale(UtenteRequestPayload body) {
+//		UtenteRequestPayload nuovoUtente = new UtenteRequestPayload(body.getUsername(), body.getPassword(), body.getEmail(), body.getNome(),
+//				body.getCognome());
+//		return utenteRepository.save(nuovoUtente);
+//	}
+
+	public Utente create(UtenteSavePayload body) {
+		utenteRepository.findByEmail(body.getEmail()).ifPresent(user -> {
+			throw new BadRequestException("L'email è stata già utilizzata");
+		});
+		Utente newUser = new Utente(body.getUsername(), body.getPassword(), body.getEmail(), body.getNome(),
+				body.getCognome(), body.getRuolo());
+		return utenteRepository.save(newUser);
+	}
+
+	public Utente findByEmail(String email) {
+		return utenteRepository.findByEmail(email)
+				.orElseThrow(() -> new NotFoundException("Utente con email" + email + "non trovato"));
+	}
+	// SALVA UTENTE
 	public Utente save(UtenteSavePayload body) {
 		Utente nuovoUtente = new Utente(body.getUsername(), body.getPassword(), body.getEmail(), body.getNome(),
 				body.getCognome(), body.getRuolo());
 		return utenteRepository.save(nuovoUtente);
 	}
-
 	// CERCA UTENTI
 	public List<Utente> findAll() {
 		return utenteRepository.findAll();
