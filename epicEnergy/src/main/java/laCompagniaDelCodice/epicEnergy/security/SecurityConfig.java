@@ -25,8 +25,10 @@ public class SecurityConfig {
 
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
 		/* DA AGGIUNGERE GLI ENDPOINTS CHE VOGLIAMO AUTENTICARE */
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/dispositivi/**").authenticated());
+		// http.authorizeHttpRequests(auth ->
+		// auth.requestMatchers("/dispositivi/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/ruoli/**").permitAll());
 
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
