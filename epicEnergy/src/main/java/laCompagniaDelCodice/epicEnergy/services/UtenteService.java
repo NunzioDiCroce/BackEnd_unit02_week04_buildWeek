@@ -46,12 +46,14 @@ public class UtenteService {
 		return utenteRepository.findByEmail(email)
 				.orElseThrow(() -> new NotFoundException("Utente con email" + email + "non trovato"));
 	}
+
 	// SALVA UTENTE
 	public Utente save(UtenteSavePayload body) {
 		Utente nuovoUtente = new Utente(body.getUsername(), body.getPassword(), body.getEmail(), body.getNome(),
 				body.getCognome(), body.getRuolo());
 		return utenteRepository.save(nuovoUtente);
 	}
+
 	// CERCA UTENTI
 	public List<Utente> findAll() {
 		return utenteRepository.findAll();

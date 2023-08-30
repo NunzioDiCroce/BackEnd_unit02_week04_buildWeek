@@ -26,7 +26,7 @@ public class RuoloService {
 
 	// SALVA RUOLO
 	public Ruolo save(RuoloSavePayload body) {
-		Ruolo nuovoRuolo = new Ruolo(body.getRuoloOperatore(), body.getRuoloAmministratore(), body.getNome());
+		Ruolo nuovoRuolo = new Ruolo(body.getNome(), body.getRuoloOperatore(), body.getRuoloAmministratore());
 		return ruoloRepository.save(nuovoRuolo);
 	}
 

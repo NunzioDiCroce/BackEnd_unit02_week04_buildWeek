@@ -26,10 +26,12 @@ import laCompagniaDelCodice.epicEnergy.enums.StatoFattura;
 import laCompagniaDelCodice.epicEnergy.enums.TipoCliente;
 import laCompagniaDelCodice.epicEnergy.enums.TipoSede;
 import laCompagniaDelCodice.epicEnergy.payloads.ProvinciaRequestPayload;
+import laCompagniaDelCodice.epicEnergy.payloads.RuoloSavePayload;
 import laCompagniaDelCodice.epicEnergy.services.ClienteService;
 import laCompagniaDelCodice.epicEnergy.services.ComuneService;
 import laCompagniaDelCodice.epicEnergy.services.FatturaService;
 import laCompagniaDelCodice.epicEnergy.services.ProvinciaService;
+import laCompagniaDelCodice.epicEnergy.services.RuoloService;
 import laCompagniaDelCodice.epicEnergy.services.SedeService;
 
 @Component
@@ -44,6 +46,8 @@ public class AppRunner implements CommandLineRunner {
 	SedeService sedeSrv;
 	@Autowired
 	FatturaService fatturaSrv;
+	@Autowired
+	RuoloService ruoloSrv;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -179,6 +183,11 @@ public class AppRunner implements CommandLineRunner {
 			fattura.setCliente(clientiDalDB.get(faker.number().numberBetween(0, clientiDalDB.size() - 1)));
 			fatturaSrv.saveFattura(fattura);
 		}
+
+		RuoloSavePayload ruolo1 = new RuoloSavePayload(true, false, "AMMINISTRATORE");
+		RuoloSavePayload ruolo2 = new RuoloSavePayload(false, true, "OPERATORE");
+		ruoloSrv.save(ruolo1);
+		ruoloSrv.save(ruolo2);
 
 	}
 
