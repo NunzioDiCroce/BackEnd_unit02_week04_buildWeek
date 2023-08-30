@@ -43,6 +43,7 @@ public class AppRunner implements CommandLineRunner {
 	SedeService sedeSrv;
 	@Autowired
 	FatturaService fatturaSrv;
+
 	@Override
 	public void run(String... args) throws Exception {
 		Faker faker = new Faker(Locale.ITALIAN);
@@ -63,7 +64,7 @@ public class AppRunner implements CommandLineRunner {
 				String nomeProvincia = columnsP[1];
 				String regione = columnsP[2];
 				ProvinciaRequestPayload provincia = new ProvinciaRequestPayload(sigla, nomeProvincia, regione);
-				// provinciaSrv.create(provincia);
+//				provinciaSrv.create(provincia);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -102,11 +103,10 @@ public class AppRunner implements CommandLineRunner {
 						Comune nuovocomune = new Comune(codiProvincia, progressivoComuneStringa, denominazioneItaliano,
 								nomeProvincia);
 						nuovocomune.setProvincia(pr);
-						// comuneSrv.create(nuovocomune);
+//						comuneSrv.create(nuovocomune);
 						return;
 					}
 				});
-
 
 				progressivoComune++;
 			}
@@ -132,10 +132,8 @@ public class AppRunner implements CommandLineRunner {
 			cliente.setNomeContatto(faker.name().firstName());
 			cliente.setCognomeContatto(faker.name().lastName());
 			cliente.setTelefonoContatto(faker.phoneNumber().phoneNumber());
-			cliente.setTipoCliente(
-					TipoCliente.values()[faker.number().numberBetween(0, TipoCliente.values().length)]);
-			// clienteService.saveCliente(cliente);
-
+			cliente.setTipoCliente(TipoCliente.values()[faker.number().numberBetween(0, TipoCliente.values().length)]);
+//			clienteService.saveCliente(cliente);
 
 		}
 
@@ -156,7 +154,7 @@ public class AppRunner implements CommandLineRunner {
 
 			sede.setCliente(clientiDalDB.get(faker.number().numberBetween(0, clientiDalDB.size() - 1)));
 			sede.setComune(comuniDalDB.get(faker.number().numberBetween(0, comuniDalDB.size() - 1)));
-			// sedeSrv.save(sede);
+//			sedeSrv.save(sede);
 		}
 
 		/* ISTANZIO 25 FATTURE */
@@ -178,7 +176,7 @@ public class AppRunner implements CommandLineRunner {
 			fattura.setStatoFattura(
 					StatoFattura.values()[faker.number().numberBetween(0, StatoFattura.values().length)]);
 			fattura.setCliente(clientiDalDB.get(faker.number().numberBetween(0, clientiDalDB.size() - 1)));
-			// fatturaSrv.saveFattura(fattura);
+//			fatturaSrv.saveFattura(fattura);
 		}
 
 	}
