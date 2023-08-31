@@ -8,11 +8,13 @@ import jakarta.persistence.Enumerated;
 import laCompagniaDelCodice.epicEnergy.enums.TipoCliente;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class NewClientePayload {
 
 	private String ragioneSociale;
