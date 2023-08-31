@@ -38,7 +38,7 @@ public class UtenteService {
 //		return utenteRepository.save(nuovoUtente);
 //	}
 
-	public Utente create(UtenteRequestPayload body) {
+	public Utente create(UtenteSavePayload body) {
 		utenteRepository.findByEmail(body.getEmail()).ifPresent(user -> {
 			throw new BadRequestException("L'email è stata già utilizzata");
 		});
