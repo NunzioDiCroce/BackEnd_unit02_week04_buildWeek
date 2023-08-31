@@ -21,7 +21,6 @@ public class ProvinciaService {
 
 	@Autowired
 	public ProvinciaService(ProvinciaRepository provinciaRepo) {
-
 		this.provinciaRepo = provinciaRepo;
 	}
 

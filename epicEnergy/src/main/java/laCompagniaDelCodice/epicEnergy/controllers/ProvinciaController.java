@@ -1,5 +1,7 @@
 package laCompagniaDelCodice.epicEnergy.controllers;
 
+import laCompagniaDelCodice.epicEnergy.exceptions.InvalidInputException;
+import laCompagniaDelCodice.epicEnergy.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -28,8 +30,12 @@ public class ProvinciaController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Provincia saveProvincia(@RequestBody ProvinciaRequestPayload body) {
-		Provincia created = provinciaSrv.create(body);
-		return created;
+		if(body == null || body.getProvincia() == null){
+			throw new InvalidInputException("Nome Provincia non valido");
+		}else{
+			Provincia created = provinciaSrv.create(body);
+			return created;
+		}
 	}
 
 	// GET PROVINCE
@@ -42,19 +48,31 @@ public class ProvinciaController {
 	// GET PROVINCIA DA ID
 	@GetMapping("/{id}")
 	public Provincia getProvinciaById(@PathVariable String sigla) {
-		return provinciaSrv.findById(sigla);
+		if (sigla.equals(null)){
+			throw new NotFoundException("Provincia non trovata");
+		}else {
+			return provinciaSrv.findById(sigla);
+		}
 	}
 
 	// PUT PROVINCIA
 	@PutMapping("/{provinciaId}")
 	public Provincia updateProvincia(@PathVariable String sigla, @RequestBody ProvinciaRequestPayload body) {
-		return provinciaSrv.findByIdAndUpdate(sigla, body);
+		if(sigla == null && body == null){
+			throw new InvalidInputException("Input non valido");
+		}else{
+			return provinciaSrv.findByIdAndUpdate(sigla, body);
+		}
 	}
 
 	// DELETE PROVINCIA
 	@DeleteMapping("/{provinciaId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteProvincia(@PathVariable String sigla) {
-		provinciaSrv.findByIdAndDelete(sigla);
+		if (sigla == null){
+			throw new InvalidInputException("Input non valido");
+		}else {
+			provinciaSrv.findByIdAndDelete(sigla);
+		}
 	}
 }
