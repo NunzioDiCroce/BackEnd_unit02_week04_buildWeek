@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import laCompagniaDelCodice.epicEnergy.entities.Ruolo;
 import laCompagniaDelCodice.epicEnergy.entities.Utente;
 import laCompagniaDelCodice.epicEnergy.exceptions.BadRequestException;
 import laCompagniaDelCodice.epicEnergy.exceptions.ItemNotFoundException;
@@ -40,8 +41,9 @@ public class UtenteService {
 		utenteRepository.findByEmail(body.getEmail()).ifPresent(user -> {
 			throw new BadRequestException("L'email è stata già utilizzata");
 		});
+		Ruolo ruolo = ruoloRepository.findByNome(body.getRuoloNome());
 		Utente newUser = new Utente(body.getUsername(), body.getPassword(), body.getEmail(), body.getNome(),
-				body.getCognome(), body.getRuolo());
+				body.getCognome(), ruolo);
 		return utenteRepository.save(newUser);
 	}
 
@@ -53,7 +55,7 @@ public class UtenteService {
 	// SALVA UTENTE
 	public Utente save(UtenteSavePayload body) {
 		Utente nuovoUtente = new Utente(body.getUsername(), body.getPassword(), body.getEmail(), body.getNome(),
-				body.getCognome(), body.getRuolo());
+				body.getCognome(), body.getRuoloNome());
 		return utenteRepository.save(nuovoUtente);
 	}
 

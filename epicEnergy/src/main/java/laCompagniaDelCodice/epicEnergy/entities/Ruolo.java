@@ -10,11 +10,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "Ruoli")
 public class Ruolo {
@@ -31,10 +33,6 @@ public class Ruolo {
 		this.ruoloOperatore = ruoloOperatore;
 		this.ruoloAmministratore = ruoloAmmnistratore;
 
-	}
-
-	public String name() {
-		return getNome();
 	}
 
 }

@@ -1,7 +1,6 @@
 package laCompagniaDelCodice.epicEnergy.services;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,13 +46,12 @@ public class ProvinciaService {
 		return provinciaRepo.findAll();
 	}
 
-	public Provincia findById(UUID id) throws NotProvinciaFoundException {
-		return provinciaRepo.findById(id).orElseThrow(() -> new NotComuneFoundException(id));
+	public Provincia findById(String sigla) throws NotProvinciaFoundException {
+		return provinciaRepo.findById(sigla).orElseThrow(() -> new NotComuneFoundException(sigla));
 	}
 
-
-	public Provincia findByIdAndUpdate(UUID id, ProvinciaRequestPayload body) throws NotProvinciaFoundException {
-		Provincia found = this.findById(id);
+	public Provincia findByIdAndUpdate(String sigla, ProvinciaRequestPayload body) throws NotProvinciaFoundException {
+		Provincia found = this.findById(sigla);
 		found.setProvincia(body.getProvincia());
 		found.setRegione(body.getRegione());
 		found.setSigla(body.getSigla());
@@ -61,8 +59,8 @@ public class ProvinciaService {
 		return provinciaRepo.save(found);
 	}
 
-	public void findByIdAndDelete(UUID id) throws NotProvinciaFoundException {
-		Provincia found = this.findById(id);
+	public void findByIdAndDelete(String sigla) throws NotProvinciaFoundException {
+		Provincia found = this.findById(sigla);
 		provinciaRepo.delete(found);
 	}
 }

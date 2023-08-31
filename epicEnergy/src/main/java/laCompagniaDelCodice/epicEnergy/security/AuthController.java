@@ -27,15 +27,13 @@ public class AuthController {
 	@Autowired
 	UtenteService usersService;
 
-
 	@Autowired
 	JWTTools jwtTools;
-
 
 	@PostMapping("/registrazione")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Utente saveUser(@RequestBody UtenteSavePayload body) {
-		Utente created = usersService.save(body);
+		Utente created = usersService.create(body);
 
 		return created;
 	}
@@ -61,11 +59,9 @@ public class AuthController {
 
 	@DeleteMapping("/{userId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteUtente(@PathVariable UUID id)
-			throws BadRequestException {
+	public void deleteUtente(@PathVariable UUID id) throws BadRequestException {
 		usersService.findByIdAndDelete(id);
 
 	}
 
 }
-

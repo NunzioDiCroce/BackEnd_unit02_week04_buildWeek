@@ -27,7 +27,7 @@ public class SecurityConfig {
 		// http.authorizeHttpRequests(auth ->
 		// auth.requestMatchers("/dispositivi/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/comuni/**").authenticated());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/provincie/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/province/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/sedi/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fatture/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/clienti/**").authenticated());

@@ -1,6 +1,5 @@
 package laCompagniaDelCodice.epicEnergy.payloads;
 
-import laCompagniaDelCodice.epicEnergy.entities.Ruolo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +15,6 @@ public class UtenteSavePayload {
 	private String nome;
 	private String cognome;
 
-	private Ruolo ruolo;
+	private String ruoloNome;
 
 }

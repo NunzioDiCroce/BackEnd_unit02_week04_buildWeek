@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +43,9 @@ public class Utente implements UserDetails {
 	@JoinColumn(name = "Ruolo", referencedColumnName = "nome")
 	private Ruolo ruolo;
 
+	@Transient
+	private String ruoloNome;
+
 	public Utente(String username, String password, String email, String nome, String cognome, Ruolo ruolo) {
 		this.username = username;
 		this.password = password;
@@ -51,6 +55,15 @@ public class Utente implements UserDetails {
 		this.ruolo = ruolo;
 	}
 
+	public Utente(String username, String password, String email, String nome, String cognome, String ruoloNome) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.ruoloNome = ruoloNome;
+	}
+
 	/*
 	 * DA VERIFICARE IL ruolo.toString. In caso dell'utilizzo di un Enum, lui
 	 * prenderebbe ruolo.getName
@@ -58,7 +71,7 @@ public class Utente implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 
-		return List.of(new SimpleGrantedAuthority(ruolo.name()));
+		return List.of(new SimpleGrantedAuthority(ruolo.getNome()));
 	}
 
 	@Override

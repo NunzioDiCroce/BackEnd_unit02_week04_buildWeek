@@ -21,12 +21,14 @@ import laCompagniaDelCodice.epicEnergy.entities.Cliente;
 import laCompagniaDelCodice.epicEnergy.entities.Comune;
 import laCompagniaDelCodice.epicEnergy.entities.Fattura;
 import laCompagniaDelCodice.epicEnergy.entities.Provincia;
+import laCompagniaDelCodice.epicEnergy.entities.Ruolo;
 import laCompagniaDelCodice.epicEnergy.entities.Sede;
 import laCompagniaDelCodice.epicEnergy.enums.StatoFattura;
 import laCompagniaDelCodice.epicEnergy.enums.TipoCliente;
 import laCompagniaDelCodice.epicEnergy.enums.TipoSede;
 import laCompagniaDelCodice.epicEnergy.payloads.ProvinciaRequestPayload;
 import laCompagniaDelCodice.epicEnergy.payloads.RuoloSavePayload;
+import laCompagniaDelCodice.epicEnergy.repositories.RuoloRepository;
 import laCompagniaDelCodice.epicEnergy.services.ClienteService;
 import laCompagniaDelCodice.epicEnergy.services.ComuneService;
 import laCompagniaDelCodice.epicEnergy.services.FatturaService;
@@ -48,6 +50,8 @@ public class AppRunner implements CommandLineRunner {
 	FatturaService fatturaSrv;
 	@Autowired
 	RuoloService ruoloSrv;
+	@Autowired
+	RuoloRepository ruoloRepo;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -167,10 +171,10 @@ public class AppRunner implements CommandLineRunner {
 			Fattura fattura = new Fattura();
 			/**/
 			Date dataRandom = faker.date().past(30, TimeUnit.DAYS);
-			System.err.println(dataRandom);
+			// System.err.println(dataRandom);
 			fattura.setData(dataRandom);
 			int annoRandom = dataRandom.getYear() + 1900;
-			System.err.println(annoRandom);
+			// System.err.println(annoRandom);
 			fattura.setAnno(annoRandom);
 
 			/**/
@@ -188,7 +192,8 @@ public class AppRunner implements CommandLineRunner {
 		RuoloSavePayload ruolo2 = new RuoloSavePayload(false, true, "OPERATORE");
 		ruoloSrv.save(ruolo1);
 		ruoloSrv.save(ruolo2);
-
+		Ruolo ricerca = ruoloRepo.findByNome("AMMINISTRATORE");
+		System.err.println(ricerca);
 	}
 
 }
