@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import laCompagniaDelCodice.epicEnergy.payloads.UtenteLoginPayload;
 import laCompagniaDelCodice.epicEnergy.security.JWTTools;
 import laCompagniaDelCodice.epicEnergy.services.UtenteService;
 
@@ -20,6 +21,8 @@ public class AuthControllerTest {
 
 	@Test
 	public void testLoginSuccess() {
+
+		UtenteLoginPayload utenteLoginPayload = new UtenteLoginPayload("user@example.com", "password");
 
 	}
 }
