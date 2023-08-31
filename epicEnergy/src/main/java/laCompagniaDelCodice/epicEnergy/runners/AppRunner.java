@@ -150,7 +150,7 @@ public class AppRunner implements CommandLineRunner {
 		/* MI PRENDO TUTTI I CLIENTI DAL DB E LI SALVO IN UNA LIST */
 		List<Cliente> clientiDalDB = new ArrayList<Cliente>();
 		clientiDalDB = clienteService.findNoPage();
-		clientiDalDB.forEach(cliente -> System.err.println(cliente));
+		// clientiDalDB.forEach(cliente -> System.err.println(cliente));
 
 		System.err.println(clientiDalDB.size());
 		/* ISTANZIO 20 SEDI */
