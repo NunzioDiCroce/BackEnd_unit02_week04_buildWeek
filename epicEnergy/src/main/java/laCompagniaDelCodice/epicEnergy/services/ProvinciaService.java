@@ -35,8 +35,7 @@ public class ProvinciaService {
 	}
 
 	public Page<Provincia> find(int page, int size, String sort) {
-		Pageable pageable = PageRequest.of(page, size, Sort.by(sort)); // (numero di pagina, numero di elementi per
-																		// pagina, nome del campo per cui sortare)
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
 		return provinciaRepo.findAll(pageable);
 	}
 

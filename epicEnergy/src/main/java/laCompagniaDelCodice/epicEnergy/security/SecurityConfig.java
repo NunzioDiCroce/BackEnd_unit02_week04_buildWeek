@@ -35,6 +35,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/sedi/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fatture/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/clienti/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/comuni/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/ruoli/**").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
@@ -42,7 +43,7 @@ public class SecurityConfig {
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
-		
+
 	}
 
 	@Bean

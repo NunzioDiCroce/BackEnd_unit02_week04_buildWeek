@@ -50,7 +50,6 @@ public class ClienteController {
 	}
 
 	@GetMapping
-	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Page<Cliente> getClienti(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
 		return clienteService.find(page, size, sortBy);

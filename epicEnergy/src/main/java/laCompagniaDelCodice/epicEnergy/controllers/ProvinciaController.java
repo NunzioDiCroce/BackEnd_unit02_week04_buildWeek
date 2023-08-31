@@ -37,7 +37,7 @@ public class ProvinciaController {
 	// GET PROVINCE
 	@GetMapping
 	public Page<Provincia> getProvince(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "sigla") String sortBy) {
 		return provinciaSrv.find(page, size, sortBy);
 	}
 

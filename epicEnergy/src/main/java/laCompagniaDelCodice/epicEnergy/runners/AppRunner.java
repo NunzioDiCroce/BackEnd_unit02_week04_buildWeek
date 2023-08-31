@@ -188,8 +188,8 @@ public class AppRunner implements CommandLineRunner {
 			fatturaSrv.saveFattura(fattura);
 		}
 
-		RuoloSavePayload ruolo1 = new RuoloSavePayload(true, false, "AMMINISTRATORE");
-		RuoloSavePayload ruolo2 = new RuoloSavePayload(false, true, "OPERATORE");
+		RuoloSavePayload ruolo1 = new RuoloSavePayload(false, true, "AMMINISTRATORE");
+		RuoloSavePayload ruolo2 = new RuoloSavePayload(true, false, "OPERATORE");
 		ruoloSrv.save(ruolo1);
 		ruoloSrv.save(ruolo2);
 		Ruolo ricerca = ruoloRepo.findByNome("AMMINISTRATORE");

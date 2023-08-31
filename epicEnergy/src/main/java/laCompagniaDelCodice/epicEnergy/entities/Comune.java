@@ -3,8 +3,10 @@ package laCompagniaDelCodice.epicEnergy.entities;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -29,14 +31,14 @@ public class Comune {
 	private String denominazione;
 	private String nomeProvincia;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "sigla", referencedColumnName = "sigla")
 	private Provincia provincia;
 
 	@Override
 	public String toString() {
 		return "Comune [id=" + id + ", codiceProvincia=" + codiceProvincia + ", progressivoComune=" + progressivoComune
-				+ ", denominazione=" + denominazione + ", nomeProvincia=" + nomeProvincia
-				+ ", provincia=" + provincia
+				+ ", denominazione=" + denominazione + ", nomeProvincia=" + nomeProvincia + ", provincia=" + provincia
 				+ "]";
 	}
 

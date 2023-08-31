@@ -45,7 +45,6 @@ public class ComuneController {
 
 	// GET COMUNE DA ID
 	@GetMapping("/{id}")
-	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Comune getComuneById(@PathVariable UUID id) {
 		return comuneSrv.findById(id);
 	}
