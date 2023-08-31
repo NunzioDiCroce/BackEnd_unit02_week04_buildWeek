@@ -52,7 +52,7 @@ public class ClienteControllerTest {
 //		// DEFINIZIONE COMPORTAMENTO MOCK CLIENTESERVICE
 		when(clienteService.saveCliente(any(Cliente.class))).thenReturn(nuovoCliente);
 
-		assertNotNull(clienteService.saveCliente(nuovoCliente));
+//		assertNotNull(clienteService.saveCliente(nuovoCliente));
 
 		// CREAZIONE NUOVO CLIENTE PAYLOAD
 //		NewClientePayload nuovoClientePayload = new NewClientePayload();
@@ -70,11 +70,11 @@ public class ClienteControllerTest {
 //		nuovoClientePayload.setTelefonoContatto("telefonoContattoTest");
 //		nuovoClientePayload.setTipoCliente(TipoCliente.SPA);
 
-//		Cliente response = clienteController.createCliente(nuovoCliente);
+		Cliente response = clienteController.createCliente(nuovoCliente);
 
 //		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 //		assertEquals(clienteId, response.getId());
-//		assertNotNull(clienteController.createCliente(nuovoCliente));
+		assertNotNull(clienteController.createCliente(nuovoCliente));
 
 	}
 
