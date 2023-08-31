@@ -27,6 +27,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "Utenti")
+//@JsonIgnoreProperties({ "password", "accountNonExpired", "authorities", "credentialsNonExpired", "accountNonLocked" })
 public class Utente implements UserDetails {
 
 	@Id
