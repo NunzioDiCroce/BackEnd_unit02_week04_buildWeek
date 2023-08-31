@@ -73,7 +73,7 @@ public class AppRunner implements CommandLineRunner {
 				String nomeProvincia = columnsP[1];
 				String regione = columnsP[2];
 				ProvinciaRequestPayload provincia = new ProvinciaRequestPayload(sigla, nomeProvincia, regione);
-				provinciaSrv.create(provincia);
+				// provinciaSrv.create(provincia);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -112,7 +112,7 @@ public class AppRunner implements CommandLineRunner {
 						Comune nuovocomune = new Comune(codiProvincia, progressivoComuneStringa, denominazioneItaliano,
 								nomeProvincia);
 						nuovocomune.setProvincia(pr);
-						comuneSrv.create(nuovocomune);
+						// comuneSrv.create(nuovocomune);
 						return;
 					}
 				});
@@ -142,7 +142,7 @@ public class AppRunner implements CommandLineRunner {
 			cliente.setCognomeContatto(faker.name().lastName());
 			cliente.setTelefonoContatto(faker.phoneNumber().phoneNumber());
 			cliente.setTipoCliente(TipoCliente.values()[faker.number().numberBetween(0, TipoCliente.values().length)]);
-			clienteService.saveCliente(cliente);
+			// clienteService.saveCliente(cliente);
 
 		}
 
@@ -163,7 +163,7 @@ public class AppRunner implements CommandLineRunner {
 
 			sede.setCliente(clientiDalDB.get(faker.number().numberBetween(0, clientiDalDB.size() - 1)));
 			sede.setComune(comuniDalDB.get(faker.number().numberBetween(0, comuniDalDB.size() - 1)));
-			sedeSrv.save(sede);
+			// sedeSrv.save(sede);
 		}
 
 		/* ISTANZIO 25 FATTURE */
@@ -185,15 +185,15 @@ public class AppRunner implements CommandLineRunner {
 			fattura.setStatoFattura(
 					StatoFattura.values()[faker.number().numberBetween(0, StatoFattura.values().length)]);
 			fattura.setCliente(clientiDalDB.get(faker.number().numberBetween(0, clientiDalDB.size() - 1)));
-			fatturaSrv.saveFattura(fattura);
+			// fatturaSrv.saveFattura(fattura);
 		}
 
 		RuoloSavePayload ruolo1 = new RuoloSavePayload(true, false, "AMMINISTRATORE");
 		RuoloSavePayload ruolo2 = new RuoloSavePayload(false, true, "OPERATORE");
-		ruoloSrv.save(ruolo1);
-		ruoloSrv.save(ruolo2);
+		// ruoloSrv.save(ruolo1);
+		// ruoloSrv.save(ruolo2);
 		Ruolo ricerca = ruoloRepo.findByNome("AMMINISTRATORE");
-		System.err.println(ricerca);
+		// System.err.println(ricerca);
 	}
 
 }
