@@ -3,6 +3,7 @@ package laCompagniaDelCodice.epicEnergy.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -11,6 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 	@Autowired
 	JWTAuthFilter jwtFilter;
@@ -26,7 +28,7 @@ public class SecurityConfig {
 		/* DA AGGIUNGERE GLI ENDPOINTS CHE VOGLIAMO AUTENTICARE */
 		// http.authorizeHttpRequests(auth ->
 		// auth.requestMatchers("/dispositivi/**").authenticated());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/comuni/**").authenticated());
+
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/province/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/sedi/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fatture/**").authenticated());

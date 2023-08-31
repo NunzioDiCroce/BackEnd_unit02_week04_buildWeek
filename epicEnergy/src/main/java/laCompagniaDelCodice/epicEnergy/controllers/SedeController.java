@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class SedeController {
 	// POST SEDE
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Sede saveSite(@RequestBody Sede body) {
 		Sede created = sedeService.save(body);
 		return created;
@@ -42,6 +44,7 @@ public class SedeController {
 
 	// GET SEDE BY ID
 	@GetMapping("/{siteId}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Sede getSiteById(@PathVariable UUID siteId) {
 		return sedeService.findById(siteId);
 
@@ -49,6 +52,7 @@ public class SedeController {
 
 	// PUT SEDE
 	@PutMapping("/{siteId}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Sede updateSite(@PathVariable UUID siteId, @RequestBody SedeUpdatePayload body) {
 		return sedeService.findByIdAndUpdate(siteId, body);
 	}
@@ -56,6 +60,7 @@ public class SedeController {
 	// DELETE SEDE
 	@DeleteMapping("/{siteId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public void deleteSite(@PathVariable UUID siteId) {
 		sedeService.findByIdAndDelete(siteId);
 	}

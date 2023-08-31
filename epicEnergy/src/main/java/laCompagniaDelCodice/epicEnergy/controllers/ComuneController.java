@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class ComuneController {
 	// POST COMUNE
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Comune saveComune(@RequestBody Comune body) {
 		Comune created = comuneSrv.create(body);
 		return created;
@@ -43,12 +45,14 @@ public class ComuneController {
 
 	// GET COMUNE DA ID
 	@GetMapping("/{id}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Comune getComuneById(@PathVariable UUID id) {
 		return comuneSrv.findById(id);
 	}
 
 	// PUT COMUNE
 	@PutMapping("/{comuneId}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Comune updateComune(@PathVariable UUID comuneId, @RequestBody ComuneRequestPayload body) {
 		return comuneSrv.findByIdAndUpdate(comuneId, body);
 	}
@@ -56,6 +60,7 @@ public class ComuneController {
 	// DELETE COMUNE
 	@DeleteMapping("/{comuneId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public void deleteComune(@PathVariable UUID comuneId) {
 		comuneSrv.findByIdAndDelete(comuneId);
 	}

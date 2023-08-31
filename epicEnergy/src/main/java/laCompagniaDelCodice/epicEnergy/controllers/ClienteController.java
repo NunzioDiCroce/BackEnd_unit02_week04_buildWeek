@@ -50,65 +50,77 @@ public class ClienteController {
 	}
 
 	@GetMapping
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Page<Cliente> getClienti(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
 		return clienteService.find(page, size, sortBy);
 	}
 
 	@PutMapping("/{id}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Cliente updateCliente(@PathVariable UUID id, @RequestBody NewClientePayload nuovoCliente) {
 		return clienteService.updateCliente(id, nuovoCliente);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public void deleteCliente(@PathVariable UUID id) {
 		clienteService.deleteCliente(id);
 	}
 
 	@GetMapping("/ordinato/nome")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Cliente> ordinaClientiPerNome() {
 		return clienteService.ordinaPerNome();
 	}
 
 	@GetMapping("/ordinato/fatturato")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Cliente> ordinaClientiPerFatturatoAnnuale() {
 		return clienteService.ordinaPerFatturatoAnnuale();
 	}
 
 	@GetMapping("/ordinato/data-inserimento")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Cliente> ordinaClientiPerDataInserimento() {
 		return clienteService.ordinaPerDataInserimento();
 	}
 
 	@GetMapping("/ordinato/data-ultimo-contatto")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Cliente> ordinaClientiPerDataUltimoContatto() {
 		return clienteService.ordinaPerDataUltimoContatto();
 	}
 
 	@GetMapping("/ordinato/sedi-legali")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Cliente> getClientiWithSediLegal() {
 		return clienteService.findAllBySediLegalOrderBySediComuneProvinciaAsc();
 	}
 
 	@GetMapping("/filtro/fatturato")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Cliente> filtraClientiPerFatturatoAnnuale(@RequestParam BigDecimal fatturaAnnuale) {
 		return clienteService.filtraPerFatturatoAnnuale(fatturaAnnuale);
 	}
 
 	@GetMapping("/filtro/data-inserimento")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Cliente> filtraClientiPerDataInserimento(
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS") Date dataInserimento) {
 		return clienteService.filtraPerDataInserimento(dataInserimento);
 	}
 
 	@GetMapping("/filtro/data-ultimo-contatto")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Cliente> filtraClientiPerDataUltimoContatto(
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS") Date dataUltimoContatto) {
 		return clienteService.filtraPerDataUltimoContatto(dataUltimoContatto);
 	}
 
 	@GetMapping("/filtro/nome")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Cliente> filtraClientiPerNome(@RequestParam String ragioneSociale) {
 		return clienteService.filtraPerParteDelNome(ragioneSociale);
 	}

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,48 +46,57 @@ public class FatturaController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Fattura createFattura(@RequestBody Fattura fattura) {
 		return fatturaService.saveFattura(fattura);
 	}
 
 	@GetMapping
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Page<Fattura> getFatture(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
 		return fatturaService.find(page, size, sortBy);
 	}
 
 	@PutMapping("/{id}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Fattura updateFattura(@PathVariable UUID id, @RequestBody NewFatturaPayload body) {
 		return fatturaService.updateFattura(id, body);
 	}
 
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteFattura(@PathVariable UUID id) {
 		fatturaService.delete(id);
 	}
 
 	@GetMapping("/filtro/cliente")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Fattura> filtraPerCliente(@RequestParam Cliente cliente) {
 		return fatturaService.filtraPerCliente(cliente);
 	}
 
 	@GetMapping("/filtro/stato")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Fattura> filtraPerStato(@RequestParam StatoFattura stato) {
 		return fatturaService.filtraPerStato(stato);
 	}
 
 	@GetMapping("/filtro/data")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Fattura> filtraPerData(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS") Date data) {
 		return fatturaService.filtraPerData(data);
 	}
 
 	@GetMapping("/filtro/anno")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Fattura> filtraPerAnno(@RequestParam int anno) {
 		return fatturaService.filtraPerAnno(anno);
 	}
 
 	@GetMapping("/filtro/importo")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public List<Fattura> filtraPerImporto(@RequestParam BigDecimal minImporto, @RequestParam BigDecimal maxImporto) {
 		return fatturaService.filtraPerImporto(minImporto, maxImporto);
 	}
