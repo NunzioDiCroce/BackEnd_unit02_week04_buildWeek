@@ -18,10 +18,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 	@Autowired
 	JWTAuthFilter jwtFilter;
+	@Autowired
+	CorsFilter corsFilter;
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.cors(c -> c.disable());
+		// http.cors(c -> c.disable());
 		http.csrf(c -> c.disable());
 
 		// Se vogliamo utilizzare JWT dobbiamo disabilitare anche le sessioni
@@ -39,8 +41,9 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/ruoli/**").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
-
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+		http.addFilterBefore(corsFilter, JWTAuthFilter.class);
 
 		return http.build();
 
