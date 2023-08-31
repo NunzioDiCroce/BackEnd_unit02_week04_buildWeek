@@ -3,6 +3,7 @@ package laCompagniaDelCodice.epicEnergy.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ public class ProvinciaController {
 	// POST PROVINCIA
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Provincia saveProvincia(@RequestBody ProvinciaRequestPayload body) {
 		Provincia created = provinciaSrv.create(body);
 		return created;
@@ -41,18 +43,21 @@ public class ProvinciaController {
 
 	// GET PROVINCIA DA ID
 	@GetMapping("/{id}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Provincia getProvinciaById(@PathVariable String sigla) {
 		return provinciaSrv.findById(sigla);
 	}
 
 	// PUT PROVINCIA
 	@PutMapping("/{provinciaId}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Provincia updateProvincia(@PathVariable String sigla, @RequestBody ProvinciaRequestPayload body) {
 		return provinciaSrv.findByIdAndUpdate(sigla, body);
 	}
 
 	// DELETE PROVINCIA
 	@DeleteMapping("/{provinciaId}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteProvincia(@PathVariable String sigla) {
 		provinciaSrv.findByIdAndDelete(sigla);

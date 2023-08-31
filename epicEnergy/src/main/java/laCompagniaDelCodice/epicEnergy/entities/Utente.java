@@ -42,7 +42,7 @@ public class Utente implements UserDetails {
 	private String nome;
 	private String cognome;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Ruolo", referencedColumnName = "nome")
 	private Ruolo ruolo;
 

@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ public class UtenteController {
 	// POST UTENTE
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Utente saveUser(@RequestBody UtenteSavePayload body) {
 		Utente created = utenteService.save(body);
 		return created;
@@ -43,6 +45,7 @@ public class UtenteController {
 
 	// GET UTENTE BY ID
 	@GetMapping("/{userId}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Utente getUserById(@PathVariable UUID userId) {
 		return utenteService.findById(userId);
 
@@ -50,12 +53,14 @@ public class UtenteController {
 
 	// PUT UTENTE
 	@PutMapping("/{userId}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Utente updateUser(@PathVariable UUID userId, @RequestBody UtenteUpdatePayload body) {
 		return utenteService.findByIdAndUpdate(userId, body);
 	}
 
 	// DELETE UTENTE
 	@DeleteMapping("/{userId}")
+	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteUser(@PathVariable UUID userId) {
 		utenteService.findByIdAndDelete(userId);
