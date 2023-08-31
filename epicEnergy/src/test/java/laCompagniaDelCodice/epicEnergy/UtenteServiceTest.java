@@ -1,5 +1,6 @@
 package laCompagniaDelCodice.epicEnergy;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,13 @@ public class UtenteServiceTest {
 		when(utenteService.create(payload)).thenReturn(nuovoUtente);
 
 		Utente utenteCreato = utenteService.create(payload);
+
+		assertEquals("utenteTest", utenteCreato.getUsername());
+		assertEquals("passwordTest", utenteCreato.getPassword());
+		assertEquals("utenteTest@mail.com", utenteCreato.getEmail());
+		assertEquals("nomeTest", utenteCreato.getNome());
+		assertEquals("cognomeTest", utenteCreato.getCognome());
+		assertEquals("AMMINISTRATORE", utenteCreato.getRuoloNome());
 
 	}
 
