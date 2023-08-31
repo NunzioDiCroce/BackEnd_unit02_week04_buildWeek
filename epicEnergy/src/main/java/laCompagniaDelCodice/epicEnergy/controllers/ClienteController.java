@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import laCompagniaDelCodice.epicEnergy.exceptions.ClienteNotFoundException;
+import laCompagniaDelCodice.epicEnergy.exceptions.InvalidInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,13 +40,21 @@ public class ClienteController {
 
 	@GetMapping("/{id}")
 	public Cliente getClienteById(@PathVariable UUID id) {
-		return clienteService.getClienteByID(id);
+		if (id == null){
+			throw new ClienteNotFoundException("Cliente con id inserito non trovato!");
+		}else{
+			return clienteService.getClienteByID(id);
+		}
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente createCliente(@RequestBody Cliente cliente) {
-		return clienteService.saveCliente(cliente);
+		if (cliente == null){
+			throw new InvalidInputException("Input non valido");
+		}else{
+			return clienteService.saveCliente(cliente);
+		}
 	}
 
 	@GetMapping
@@ -55,13 +65,21 @@ public class ClienteController {
 
 	@PutMapping("/{id}")
 	public Cliente updateCliente(@PathVariable UUID id, @RequestBody NewClientePayload nuovoCliente) {
-		return clienteService.updateCliente(id, nuovoCliente);
+		if (nuovoCliente == null){
+			throw new InvalidInputException("Dati cliente non validi!");
+		}else {
+			return clienteService.updateCliente(id, nuovoCliente);
+		}
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteCliente(@PathVariable UUID id) {
-		clienteService.deleteCliente(id);
+		if (id == null){
+			throw new ClienteNotFoundException("Cliente con id inserito non trovato!");
+		}else {
+			clienteService.deleteCliente(id);
+		}
 	}
 
 	@GetMapping("/ordinato/nome")

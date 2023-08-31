@@ -48,7 +48,7 @@ public class ProvinciaController {
 	// GET PROVINCIA DA ID
 	@GetMapping("/{id}")
 	public Provincia getProvinciaById(@PathVariable String sigla) {
-		if (sigla.equals(null)){
+		if (sigla == null){
 			throw new NotFoundException("Provincia non trovata");
 		}else {
 			return provinciaSrv.findById(sigla);
