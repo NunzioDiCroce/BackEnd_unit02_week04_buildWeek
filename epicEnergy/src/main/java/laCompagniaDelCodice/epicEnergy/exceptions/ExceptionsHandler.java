@@ -39,6 +39,12 @@ public class ExceptionsHandler {
 		return new ErrorPayload(e.getMessage(), new Date());
 	}
 
+	@ExceptionHandler(RuoloNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ErrorPayload roleNotFound(RuoloNotFoundException e) {
+		return new ErrorPayload(e.getMessage(), new Date());
+	}
+
 	@ExceptionHandler(ItemNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ErrorPayload handleNotFound(ItemNotFoundException e) {

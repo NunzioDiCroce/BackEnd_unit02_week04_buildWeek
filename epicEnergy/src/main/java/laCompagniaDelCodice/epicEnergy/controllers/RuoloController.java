@@ -1,7 +1,6 @@
 package laCompagniaDelCodice.epicEnergy.controllers;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,23 +37,22 @@ public class RuoloController {
 	}
 
 	// GET RUOLO
-	@GetMapping("")
+	@GetMapping
 	public List<Ruolo> getRoles() {
 		return ruoloService.findAll();
 	}
 
 	// GET RUOLO BY ID
-	@GetMapping("/{roleId}")
-	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
-	public Ruolo getRoleById(@PathVariable UUID roleId) {
-		return ruoloService.findById(roleId);
+	@GetMapping("/{ruolo}")
+	public Ruolo getRoleById(@PathVariable String ruolo) {
+		return ruoloService.findById(ruolo);
 
 	}
 
 	// PUT RUOLO
 	@PutMapping("/{roleId}")
 	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
-	public Ruolo updateRole(@PathVariable UUID roleId, @RequestBody RuoloUpdatePayload body) {
+	public Ruolo updateRole(@PathVariable String roleId, @RequestBody RuoloUpdatePayload body) {
 		return ruoloService.findByIdAndUpdate(roleId, body);
 	}
 
@@ -62,7 +60,7 @@ public class RuoloController {
 	@DeleteMapping("/{roleId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
-	public void deleteRole(@PathVariable UUID roleId) {
+	public void deleteRole(@PathVariable String roleId) {
 		ruoloService.findByIdAndDelete(roleId);
 	}
 

@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import laCompagniaDelCodice.epicEnergy.entities.Provincia;
-import laCompagniaDelCodice.epicEnergy.exceptions.NotComuneFoundException;
 import laCompagniaDelCodice.epicEnergy.exceptions.NotProvinciaFoundException;
 import laCompagniaDelCodice.epicEnergy.payloads.ProvinciaRequestPayload;
 import laCompagniaDelCodice.epicEnergy.repositories.ProvinciaRepository;
@@ -46,7 +45,7 @@ public class ProvinciaService {
 	}
 
 	public Provincia findById(String sigla) throws NotProvinciaFoundException {
-		return provinciaRepo.findById(sigla).orElseThrow(() -> new NotComuneFoundException(sigla));
+		return provinciaRepo.findById(sigla).orElseThrow(() -> new NotProvinciaFoundException(sigla));
 	}
 
 	public Provincia findByIdAndUpdate(String sigla, ProvinciaRequestPayload body) throws NotProvinciaFoundException {

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import laCompagniaDelCodice.epicEnergy.entities.Cliente;
 import laCompagniaDelCodice.epicEnergy.entities.Fattura;
 import laCompagniaDelCodice.epicEnergy.enums.StatoFattura;
+import laCompagniaDelCodice.epicEnergy.exceptions.NotFoundException;
 import laCompagniaDelCodice.epicEnergy.payloads.NewFatturaPayload;
 import laCompagniaDelCodice.epicEnergy.services.FatturaService;
 
@@ -40,7 +41,7 @@ public class FatturaController {
 //	}
 
 	@GetMapping("/{id}")
-	public Fattura getFatturaById(@PathVariable UUID id) {
+	public Fattura getFatturaById(@PathVariable UUID id) throws NotFoundException {
 		return fatturaService.getFatturaByID(id);
 	}
 

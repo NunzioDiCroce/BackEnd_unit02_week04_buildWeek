@@ -44,7 +44,6 @@ public class SedeController {
 
 	// GET SEDE BY ID
 	@GetMapping("/{siteId}")
-	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
 	public Sede getSiteById(@PathVariable UUID siteId) {
 		return sedeService.findById(siteId);
 

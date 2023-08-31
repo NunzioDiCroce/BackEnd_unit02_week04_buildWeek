@@ -42,8 +42,7 @@ public class ProvinciaController {
 	}
 
 	// GET PROVINCIA DA ID
-	@GetMapping("/{id}")
-	@PreAuthorize("hasAuthority('AMMINISTRATORE')")
+	@GetMapping("/{sigla}")
 	public Provincia getProvinciaById(@PathVariable String sigla) {
 		return provinciaSrv.findById(sigla);
 	}
