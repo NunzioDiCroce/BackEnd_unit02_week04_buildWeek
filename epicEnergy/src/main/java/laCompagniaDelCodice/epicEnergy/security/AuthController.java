@@ -28,16 +28,12 @@ public class AuthController {
 	@Autowired
 	UtenteService usersService;
 
-
 	@Autowired
 	JWTTools jwtTools;
-	@Autowired
-	PasswordEncoder bcrypt;
 
 	@PostMapping("/registrazione")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Utente saveUser(@RequestBody UtenteRequestPayload body) {
-		body.setPassword(bcrypt.encode(body.getPassword()));
+	public Utente saveUser(@RequestBody UtenteSavePayload body) {
 		Utente created = usersService.create(body);
 
 		return created;
@@ -64,11 +60,9 @@ public class AuthController {
 
 	@DeleteMapping("/{userId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteUtente(@PathVariable UUID id)
-			throws BadRequestException {
+	public void deleteUtente(@PathVariable UUID id) throws BadRequestException {
 		usersService.findByIdAndDelete(id);
 
 	}
 
 }
-

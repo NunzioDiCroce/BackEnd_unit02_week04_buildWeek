@@ -11,14 +11,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -38,8 +42,12 @@ public class Utente implements UserDetails {
 	private String nome;
 	private String cognome;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Ruolo", referencedColumnName = "nome")
 	private Ruolo ruolo;
+
+	@Transient
+	private String ruoloNome;
 
 	public Utente(String username, String password, String email, String nome, String cognome, Ruolo ruolo) {
 		this.username = username;
@@ -50,6 +58,14 @@ public class Utente implements UserDetails {
 		this.ruolo = ruolo;
 	}
 
+	public Utente(String username, String password, String email, String nome, String cognome, String ruoloNome) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.ruoloNome = ruoloNome;
+	}
 
 
 	/*
@@ -58,17 +74,8 @@ public class Utente implements UserDetails {
 	 */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-//		List<GrantedAuthority> authorities = new ArrayList<>();
-//		for (Ruolo role : ruolo) {
-//			authorities.add(new SimpleGrantedAuthority("ROLE" + role.getNome())); // Prefix ROLE is important
-//		}
-		if (this.ruolo != null) {
-			return List.of(new SimpleGrantedAuthority(ruolo.getNome()));
 
-		} else {
-			return null;
-		}
-
+		return List.of(new SimpleGrantedAuthority(ruolo.getNome()));
 	}
 
 	@Override
@@ -97,7 +104,6 @@ public class Utente implements UserDetails {
 
 
 	public Utente(UUID id, String username, String password, String email, String nome, String cognome) {
-
 		this.id = id;
 		this.username = username;
 		this.password = password;

@@ -1,7 +1,5 @@
 package laCompagniaDelCodice.epicEnergy.controllers;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -43,20 +41,20 @@ public class ProvinciaController {
 
 	// GET PROVINCIA DA ID
 	@GetMapping("/{id}")
-	public Provincia getProvinciaById(@PathVariable UUID id) {
-		return provinciaSrv.findById(id);
+	public Provincia getProvinciaById(@PathVariable String sigla) {
+		return provinciaSrv.findById(sigla);
 	}
 
 	// PUT PROVINCIA
 	@PutMapping("/{provinciaId}")
-	public Provincia updateProvincia(@PathVariable UUID provinciaId, @RequestBody ProvinciaRequestPayload body) {
-		return provinciaSrv.findByIdAndUpdate(provinciaId, body);
+	public Provincia updateProvincia(@PathVariable String sigla, @RequestBody ProvinciaRequestPayload body) {
+		return provinciaSrv.findByIdAndUpdate(sigla, body);
 	}
 
 	// DELETE PROVINCIA
 	@DeleteMapping("/{provinciaId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteProvincia(@PathVariable UUID provinciaId) {
-		provinciaSrv.findByIdAndDelete(provinciaId);
+	public void deleteProvincia(@PathVariable String sigla) {
+		provinciaSrv.findByIdAndDelete(sigla);
 	}
 }

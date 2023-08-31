@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -28,8 +29,8 @@ import laCompagniaDelCodice.epicEnergy.enums.StatoFattura;
 import laCompagniaDelCodice.epicEnergy.enums.TipoCliente;
 import laCompagniaDelCodice.epicEnergy.enums.TipoSede;
 import laCompagniaDelCodice.epicEnergy.payloads.ProvinciaRequestPayload;
-import laCompagniaDelCodice.epicEnergy.payloads.RuoloRequestModify;
 import laCompagniaDelCodice.epicEnergy.payloads.RuoloSavePayload;
+import laCompagniaDelCodice.epicEnergy.repositories.RuoloRepository;
 import laCompagniaDelCodice.epicEnergy.services.ClienteService;
 import laCompagniaDelCodice.epicEnergy.services.ComuneService;
 import laCompagniaDelCodice.epicEnergy.services.FatturaService;
@@ -53,7 +54,7 @@ public class AppRunner implements CommandLineRunner {
 	@Autowired
 	RuoloService ruoloSrv;
 	@Autowired
-	UtenteService utenteSrv;
+	RuoloRepository ruoloRepo;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -75,7 +76,7 @@ public class AppRunner implements CommandLineRunner {
 				String nomeProvincia = columnsP[1];
 				String regione = columnsP[2];
 				ProvinciaRequestPayload provincia = new ProvinciaRequestPayload(sigla, nomeProvincia, regione);
-				// provinciaSrv.create(provincia);
+				provinciaSrv.create(provincia);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -114,7 +115,7 @@ public class AppRunner implements CommandLineRunner {
 						Comune nuovocomune = new Comune(codiProvincia, progressivoComuneStringa, denominazioneItaliano,
 								nomeProvincia);
 						nuovocomune.setProvincia(pr);
-						// comuneSrv.create(nuovocomune);
+						comuneSrv.create(nuovocomune);
 						return;
 					}
 				});
@@ -144,7 +145,7 @@ public class AppRunner implements CommandLineRunner {
 			cliente.setCognomeContatto(faker.name().lastName());
 			cliente.setTelefonoContatto(faker.phoneNumber().phoneNumber());
 			cliente.setTipoCliente(TipoCliente.values()[faker.number().numberBetween(0, TipoCliente.values().length)]);
-			// clienteService.saveCliente(cliente);
+			clienteService.saveCliente(cliente);
 
 		}
 
@@ -165,19 +166,19 @@ public class AppRunner implements CommandLineRunner {
 
 			sede.setCliente(clientiDalDB.get(faker.number().numberBetween(0, clientiDalDB.size() - 1)));
 			sede.setComune(comuniDalDB.get(faker.number().numberBetween(0, comuniDalDB.size() - 1)));
-			// sedeSrv.save(sede);
+			sedeSrv.save(sede);
 		}
 
 		/* ISTANZIO 25 FATTURE */
 		for (int i = 0; i < 25; i++) {
 			Fattura fattura = new Fattura();
 			/**/
-//			Date dataRandom = faker.date().past(30, TimeUnit.DAYS);
-//			System.err.println(dataRandom);
-//			fattura.setData(dataRandom);
-//			int annoRandom = dataRandom.getYear() + 1900;
-//			System.err.println(annoRandom);
-//			fattura.setAnno(annoRandom);
+			Date dataRandom = faker.date().past(30, TimeUnit.DAYS);
+			// System.err.println(dataRandom);
+			fattura.setData(dataRandom);
+			int annoRandom = dataRandom.getYear() + 1900;
+			// System.err.println(annoRandom);
+			fattura.setAnno(annoRandom);
 
 			/**/
 			fattura.setAnno(faker.number().numberBetween(2020, 2023));
@@ -187,7 +188,7 @@ public class AppRunner implements CommandLineRunner {
 			fattura.setStatoFattura(
 					StatoFattura.values()[faker.number().numberBetween(0, StatoFattura.values().length)]);
 			fattura.setCliente(clientiDalDB.get(faker.number().numberBetween(0, clientiDalDB.size() - 1)));
-			// fatturaSrv.saveFattura(fattura);
+			fatturaSrv.saveFattura(fattura);
 		}
 		/* INIZIALIZZO I RUOLI E LI SALVO NEL DB */
 		RuoloSavePayload operatore = new RuoloSavePayload(true, false, "OPERATORE");
@@ -215,6 +216,12 @@ public class AppRunner implements CommandLineRunner {
 		ruoloSrv.assegnaRuolo(idUtente, ruoloModifica);
 		System.err.println(utenteSrv.findById(idUtente).toString());
 
+		RuoloSavePayload ruolo1 = new RuoloSavePayload(true, false, "AMMINISTRATORE");
+		RuoloSavePayload ruolo2 = new RuoloSavePayload(false, true, "OPERATORE");
+		ruoloSrv.save(ruolo1);
+		ruoloSrv.save(ruolo2);
+		Ruolo ricerca = ruoloRepo.findByNome("AMMINISTRATORE");
+		System.err.println(ricerca);
 	}
 
 }

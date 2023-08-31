@@ -15,7 +15,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import laCompagniaDelCodice.epicEnergy.entities.Utente;
-import laCompagniaDelCodice.epicEnergy.exceptions.UnauthorizedException;
 import laCompagniaDelCodice.epicEnergy.services.UtenteService;
 
 @Component
@@ -31,22 +30,21 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
 		String authHeader = request.getHeader("Authorization");
 
-		if (authHeader == null || !authHeader.startsWith("Bearer "))
-			throw new UnauthorizedException("Per favore passa il token nell'authorization header");
-		String token = authHeader.substring(7);
-		System.out.println("TOKEN -------> " + token);
+		if (authHeader != null && authHeader.startsWith("Bearer ")) {
+			String token = authHeader.substring(7);
+			System.out.println("TOKEN -------> " + token);
 
-		jwttools.verifyToken(token);
-		String id = jwttools.extractSubject(token);
-		Utente currentUser = usersService.findById(UUID.fromString(id));
+			jwttools.verifyToken(token);
+			String id = jwttools.extractSubject(token);
+			Utente currentUser = usersService.findById(UUID.fromString(id));
 
-		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(currentUser, null,
-				currentUser.getAuthorities());
+			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(currentUser, null,
+					currentUser.getAuthorities());
 
-		SecurityContextHolder.getContext().setAuthentication(authToken);
+			SecurityContextHolder.getContext().setAuthentication(authToken);
+		}
 
 		filterChain.doFilter(request, response);
-
 	}
 
 	@Override

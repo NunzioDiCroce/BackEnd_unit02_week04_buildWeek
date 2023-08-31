@@ -10,11 +10,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "Ruoli")
 public class Ruolo {
@@ -26,14 +28,10 @@ public class Ruolo {
 	private Boolean ruoloOperatore;
 	private Boolean ruoloAmministratore;
 
-//	@ManyToMany
-//	@JoinTable(name = "Utente_Ruolo")
-//	private List<Utente> utente;
-
-	public Ruolo(Boolean ruoloOperatore, Boolean ruoloAmmnistratore, String nome) {
+	public Ruolo(String nome, Boolean ruoloAmmnistratore, Boolean ruoloOperatore) {
+		this.nome = nome;
 		this.ruoloOperatore = ruoloOperatore;
 		this.ruoloAmministratore = ruoloAmmnistratore;
-		this.nome = nome;
 
 	}
 
