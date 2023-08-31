@@ -132,6 +132,7 @@ public class AppRunner implements CommandLineRunner {
 			cliente.setRagioneSociale(faker.company().name());
 			cliente.setPartitaIva(faker.number().digits(11));
 			cliente.setEmail(faker.internet().emailAddress());
+
 			cliente.setDataInserimento(faker.date().past(365, TimeUnit.DAYS));
 			cliente.setDataUltimoContatto(faker.date().past(30, TimeUnit.DAYS));
 			cliente.setFatturaAnnuale(new BigDecimal(faker.number().randomDouble(2, 1000, 100000)));
@@ -149,7 +150,7 @@ public class AppRunner implements CommandLineRunner {
 		/* MI PRENDO TUTTI I CLIENTI DAL DB E LI SALVO IN UNA LIST */
 		List<Cliente> clientiDalDB = new ArrayList<Cliente>();
 		clientiDalDB = clienteService.findNoPage();
-		// clientiDalDB.forEach(cliente -> System.err.println(cliente));
+		clientiDalDB.forEach(cliente -> System.err.println(cliente));
 
 		System.err.println(clientiDalDB.size());
 		/* ISTANZIO 20 SEDI */
