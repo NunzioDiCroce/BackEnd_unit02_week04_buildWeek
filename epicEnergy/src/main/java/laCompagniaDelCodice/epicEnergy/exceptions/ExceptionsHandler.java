@@ -39,6 +39,24 @@ public class ExceptionsHandler {
 		return new ErrorPayload(e.getMessage(), new Date());
 	}
 
+	@ExceptionHandler(ItemNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ErrorPayload handleNotFound(ItemNotFoundException e) {
+		return new ErrorPayload(e.getMessage(), new Date());
+	}
+
+	@ExceptionHandler(NotComuneFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ErrorPayload handleNotFound(NotComuneFoundException e) {
+		return new ErrorPayload(e.getMessage(), new Date());
+	}
+
+	@ExceptionHandler(NotProvinciaFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ErrorPayload handleNotFound(NotProvinciaFoundException e) {
+		return new ErrorPayload(e.getMessage(), new Date());
+	}
+
 	@ExceptionHandler(AccessDeniedException.class)
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ErrorPayload handleForbidden(AccessDeniedException e) {
