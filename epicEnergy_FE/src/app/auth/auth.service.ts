@@ -24,7 +24,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(data: Utente) {
-    return this.http.post<AuthData>(`${this.baseUrl}login`, data).pipe(
+    return this.http.post<AuthData>(`${this.baseUrl}auth/login`, data).pipe(
       tap((data) => {
         console.log(data);
         this.router.navigate(['/clienti']);

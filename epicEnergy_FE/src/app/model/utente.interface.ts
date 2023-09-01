@@ -5,5 +5,7 @@ export interface Utente {
   password:string,
   nome:string,
   cognome:string,
-  username:string
+  username:string,
+  ruoloNome:string,
+  id?:string
 }
