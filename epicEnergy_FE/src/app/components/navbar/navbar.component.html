@@ -1,8 +1,8 @@
 <header class="container">
   <div class="d-flex justify-content-center">
-    <nav class="navbar navbar-expand-lg fixed-top mx-5 mt-3 rounded">
+    <!--<nav class="navbar navbar-expand-lg fixed-top mx-5 mt-3 rounded">
       <div class="container-fluid">
-        <a class="navbar-brand" id="logo" [routerLink]="['/']" routerLinkActive="active">CIAO</a>
+        <a class="navbar-brand" id="logo" [routerLink]="['/']" routerLinkActive="active">EpicEnergy</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -14,12 +14,12 @@
                 <a class="nav-link" aria-current="page" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"  style="color: aliceblue;">Home</a>
               </li>
               <li class="nav-item" *ngIf="user">
-                <a class="nav-link" aria-current="page" [routerLink]="['/movies']" routerLinkActive="active"
-                  style="color: black;">Movies</a>
+                <a class="nav-link text-dark" aria-current="page" [routerLink]="['/register']" routerLinkActive="active"
+                  ><span>Registrazione</span></a>
               </li>
               <li class="nav-item" *ngIf="user">
-                <a class="nav-link" aria-current="page" [routerLink]="['/favorite']" routerLinkActive="active"
-                  style="color: black;">Preferiti</a>
+                <a class="nav-link" aria-current="page" [routerLink]="['/login']" routerLinkActive="active"
+                  ><span>Login</span></a>
               </li>
             </div>
 
@@ -61,6 +61,35 @@
           </ul>
         </div>
       </div>
+    </nav>-->
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">EpicEnergy</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page"  [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active">Registrazione</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/clienti']" routerLinkActive="active">Clienti</a>
+            </li>
+
+
+          </ul>
+
+        </div>
+      </div>
     </nav>
   </div>
+
 </header>
