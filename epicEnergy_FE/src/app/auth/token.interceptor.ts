@@ -1,4 +1,3 @@
-/*File che serve per intercettare il token*/
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -8,28 +7,38 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { switchMap, take} from 'rxjs/operators'
+import { switchMap, take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+    token!: string | null;
+  constructor(private authSrv: AuthService, private router: Router) {}
 
-  constructor(private authSrv:AuthService) {}
-
-  newReq!: HttpRequest<any>
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return this.authSrv.user$.pipe(take(1), switchMap(user =>{
-      if(!user){
-        console.log(request)
-        console.log(this.newReq)
-        return next.handle(request)
-      }else{
-        this.newReq = request.clone({
-          headers: request.headers.set(`Authorization`, `Bearer ${user.accessToken}` )
-        })
-      }
-      console.log(request)
-      console.log(this.newReq)
-      return next.handle(this.newReq)
-    }));
+    return this.authSrv.user$.pipe(
+      take(1),
+      switchMap(user => {
+        if (!user) {
+          return next.handle(request);
+        }
+        this.token = localStorage.getItem('Token');
+        if (this.token) {
+          const tokenValore = JSON.parse(this.token);
+          console.log('TokenValore:', tokenValore);
+          const newRequest = request.clone({
+            setHeaders: {
+              'Authorization': `Bearer ${tokenValore}`
+            }
+          });
+
+          return next.handle(newRequest);
+        } else {
+          this.router.navigate(['']);
+          return next.handle(request);
+        }
+      })
+    );
   }
+
 }

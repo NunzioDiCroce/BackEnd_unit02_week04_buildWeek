@@ -1,5 +1,6 @@
 package laCompagniaDelCodice.epicEnergy.payloads;
 
+import laCompagniaDelCodice.epicEnergy.entities.Utente;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,10 +8,12 @@ import lombok.Setter;
 @Getter
 public class UtenteLoginSuccessful {
 	private String token;
+	private Utente utente;
 
-	public UtenteLoginSuccessful(String token) {
+	public UtenteLoginSuccessful(String token, Utente utente) {
 
 		this.token = token;
+		this.utente = utente;
 	}
 
 	@Override

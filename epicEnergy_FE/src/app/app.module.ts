@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './auth/auth.guard';
 import { ClientiComponent } from './components/clienti/clienti.component';
+import { TokenInterceptor } from './auth/token.interceptor';
 
 
 
@@ -47,6 +48,7 @@ redirectTo:'',
     RegisterComponent,
     LoginComponent,
     ClientiComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,11 @@ redirectTo:'',
     RouterModule.forRoot(routes),
     FormsModule
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true,
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -53,7 +53,7 @@ public class AuthController {
 
 			String token = jwtTools.createToken(user);
 
-			UtenteLoginSuccessful loginAvvenuto = new UtenteLoginSuccessful(token);
+			UtenteLoginSuccessful loginAvvenuto = new UtenteLoginSuccessful(token, user);
 			return new ResponseEntity<>(loginAvvenuto, HttpStatus.OK);
 
 		} else {

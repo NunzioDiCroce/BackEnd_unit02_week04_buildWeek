@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router'
+import { AuthData } from '../auth-data.interface';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+    user:AuthData | undefined;
+    token:string | undefined;
   isLoading = false
   constructor(private authServ:AuthService, private router:Router) { }
 
@@ -27,6 +29,8 @@ export class LoginComponent implements OnInit {
         },
         (error) => {
           console.error(error.error);
+          console.log("Errore")
+          console.log(5);
           if (error.error === 'Incorrect password') {
             alert('Occhio, pirata! Hai sbagliato password!');
           }else if(error.error === 'Cannot find user'){
@@ -38,6 +42,7 @@ export class LoginComponent implements OnInit {
     } catch (error: any) {
       console.error(error);
       this.isLoading = false;
+      console.log(this.user)
     }
 
 

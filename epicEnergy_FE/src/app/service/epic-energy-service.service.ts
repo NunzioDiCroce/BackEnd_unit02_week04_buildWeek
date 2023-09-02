@@ -12,6 +12,6 @@ export class EpicEnergyServiceService {
   constructor(private http: HttpClient) {}
 
   getAllClienti() {
-    return this.http.get<Cliente[]>(`${this.baseUrl}clienti`);
+    return this.http.get<Cliente[]>(`${this.baseUrl}clienti/noPage`);
   }
 }

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { AuthData } from './auth-data.interface';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { Utente } from '../model/utente.interface';
   providedIn: 'root',
 })
 export class AuthService {
+    isLoggedIn = false;
   jwtHelper = new JwtHelperService();
   baseUrl = environment.baseURL;
   userProfile!: Utente;
@@ -21,6 +22,7 @@ export class AuthService {
   utente!: AuthData;
   user$ = this.authSubj.asObservable();
   timeLogout: any;
+  user!: AuthData | null;
   constructor(private http: HttpClient, private router: Router) {}
 
   login(data: Utente) {
@@ -31,6 +33,7 @@ export class AuthService {
         this.authSubj.next(data);
         this.utente = data;
         console.log(this.utente);
+        localStorage.setItem('Token', JSON.stringify(data.token));
         localStorage.setItem('utente', JSON.stringify(data));
         this.autologout(data);
         this.userProfile = data.utente;
@@ -38,20 +41,26 @@ export class AuthService {
     );
   }
 
+
   restore() {
-    const user = localStorage.getItem('utente');
-    if (!user) {
+    const utenteLS = localStorage.getItem('utente');
+
+    if (!utenteLS) {
       return;
     } else {
-      const userData: AuthData = JSON.parse(user);
-      if (this.jwtHelper.isTokenExpired(userData.accessToken)) {
+      const userData: AuthData = JSON.parse(utenteLS);
+      if (this.jwtHelper.isTokenExpired(userData.token)) {
+        this.logout();
         return;
-      }
-      this.authSubj.next(userData);
+      }else{
+        this.authSubj.next(userData);
       this.autologout(userData);
       this.userProfile = userData.utente;
+      }
+
     }
   }
+
 
   signup(data: {
     nome: string;
@@ -63,11 +72,27 @@ export class AuthService {
   }) {
     return this.http.post(`${this.baseUrl}auth/registrazione`, data);
   }
+  /*signup(data: {
+    nome: string;
+    cognome: string;
+    email: string;
+    password: string;
+    username: string;
+    ruoloNome: string;
+  }): Observable<any> {
+    return this.http.post('${this.baseUrl}auth/registrazione', data).pipe(
+      map((response) => {
+        // Se la registrazione è andata a buon fine, setta isloggedin a true
+        this.isLoggedIn = true;
+        return response; // Passa la risposta originale all'uso successivo se necessario
+      })
+    );
+  }*/
 
   logout() {
     this.authSubj.next(null);
     localStorage.removeItem('utente');
-    localStorage.removeItem('registrationDate')
+    localStorage.removeItem('Token');
     this.router.navigate(['/']);
     if (this.timeLogout) {
       clearTimeout(this.timeLogout);
@@ -75,7 +100,7 @@ export class AuthService {
   }
   autologout(data: AuthData) {
     const expirationDate = this.jwtHelper.getTokenExpirationDate(
-      data.accessToken
+      data.token
     ) as Date;
     const expirationMilliseconds =
       expirationDate.getTime() - new Date().getTime();
@@ -88,3 +113,5 @@ export class AuthService {
     return this.userProfile;
   }
 }
+
+

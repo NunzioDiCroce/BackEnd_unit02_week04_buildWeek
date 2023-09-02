@@ -32,10 +32,10 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 
-//	@GetMapping
-//	public List<Cliente> getAllClienti() {
-//		return clienteService.getAllClienti();
-//	}
+	@GetMapping("/noPage")
+	public List<Cliente> getAllClienti() {
+		return clienteService.getAllClienti();
+	}
 
 	@GetMapping("/{id}")
 	public Cliente getClienteById(@PathVariable UUID id) {
