@@ -25,10 +25,11 @@ export class AuthService {
   user!: AuthData | null;
   constructor(private http: HttpClient, private router: Router) {}
 
+
   login(data: Utente) {
     return this.http.post<AuthData>(`${this.baseUrl}auth/login`, data).pipe(
       tap((data) => {
-        console.log(data);
+        this.isLoggedIn = true;
         this.router.navigate(['/clienti']);
         this.authSubj.next(data);
         this.utente = data;
@@ -49,13 +50,11 @@ export class AuthService {
       return;
     } else {
       const userData: AuthData = JSON.parse(utenteLS);
-      if (this.jwtHelper.isTokenExpired(userData.token)) {
-        this.logout();
-        return;
-      }else{
+      if (!this.jwtHelper.isTokenExpired(userData.token)) {
+        this.isLoggedIn = true;
         this.authSubj.next(userData);
-      this.autologout(userData);
-      this.userProfile = userData.utente;
+        this.autologout(userData);
+        this.userProfile = userData.utente;
       }
 
     }
